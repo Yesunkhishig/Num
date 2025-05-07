@@ -1,0 +1,1489 @@
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    /* Үндсэн өнгө (Утгыг нь sisi.num.edu.mn-д ойртуулсан) */
+    --primary-color: #0D47A1;       /* МУИС-ийн өнгөтэй ойролцоо */
+    --primary-hover: #0B3B84;       /* Үндсэн өнгөний бараан туяа */
+    --secondary-color: #E3F2FD;     /* Маш цайвар цэнхэр, акцент, hover (өмнөхтэйгөө ижил нэр) */
+    --secondary-hover: #B0D7F8;     /* Цайвар цэнхрийн бараан туяа
+
+    /* Текстний өнгө (Нэрийг нь хэвээр үлдээж, утгыг нь зохицуулсан) */
+    --text-dark: #212529;           /* Үндсэн бичиг, бараг хар (хэт тод биш) */
+    --text-light: #6C757D;          /* Дэд бичиг, placeholder (өмнөхтэйгөө ижил нэр) */
+    --text-white: #ffffff;
+    /* НЭМЭЛТ: Шаардлагатай бол ашиглах текстний өнгө */
+    --text-medium: #495057;         /* Дунд зэргийн бараан текст */
+    --text-link: var(--primary-color); /* Линкний өнгө */
+
+    /* Хүрээ, дэвсгэр, сүүдэр (Нэрийг нь хэвээр үлдээж, утгыг нь сайжруулсан) */
+    --border-color: #DEE2E6;        /* Илүү зөөлөн саарал хүрээ (өмнөхтэйгөө ижил нэр) */
+    --card-bg: #ffffff;             /* (өмнөхтэйгөө ижил нэр, утга хэвээр) */
+    --card-shadow: 0 0 1px rgba(0,0,0,.08), 0 2px 4px rgba(0,0,0,.05); /* Илүү зөөлөн сүүдэр (өмнөхтэйгөө ижил нэр) */
+    
+    /* НЭМЭЛТ: Ар дэвсгэрийн өнгө */
+    --body-bg: #F4F6F9;             /* sisi-тэй төстэй, маш цайвар саарал */
+
+    /* Статус өнгөнүүд (Нэр, утга хэвээр байж болно, эсвэл bootstrap стандарттай ойролцоо) */
+    --success: #28a745;
+    --success-hover: #218838; /* НЭМЭЛТ: Success өнгөний бараан туяа */
+    --warning: #ffc107;
+    --warning-hover: #e0a800; /* НЭМЭЛТ: Warning өнгөний бараан туяа (хэрэв ашигладаг бол) */
+    --error: #dc3545;
+    --error-hover: #c82333;   /* НЭМЭЛТ: Error өнгөний бараан туяа */
+    --info: #17a2b8;
+    --info-hover: #138496;    /* НЭМЭЛТ: Info өнгөний бараан туяа (хэрэв ашигладаг бол) */
+
+
+    --primary-color-rgb: 13, 71, 161; /* --primary-color: #0D47A1; -ийн RGB утга */
+    --success-rgb: 40, 167, 69;    /* --success: #28a745; -ийн RGB утга */
+    --error-rgb: 220, 53, 69;      /* --error: #dc3545; -ийн RGB утга */
+
+    /* Таны хуучин gray хувьсагчид (Нэрс хэвээрээ, утгыг нь шаардлагатай бол шинэчилж болно) */
+    /* Эдгээрийг --body-bg, --border-color, --text-light зэрэгт шингээж болох ч, эвдрэлээс сэргийлж хэвээр үлдээв. */
+    --gray-50: #f8f9fa;    /* --body-bg-тай ойролцоо */
+    --gray-100: #f1f3f5;
+    --gray-200: #e9ecef;   /* --border-color-той ойролцоо */
+    --gray-300: #dee2e6;   /* --border-color-той ойролцоо */
+    --gray-400: #ced4da;
+    --gray-500: #adb5bd;   /* --text-light-тай ойролцоо */
+    --gray-600: #868e96;
+    --gray-700: #495057;   /* --text-medium-тай ойролцоо */
+    --gray-800: #343a40;
+    --gray-900: #212529;   /* --text-dark-тай ойролцоо */
+
+    --transition: all 0.2s ease-in-out; /* (өмнөхтэйгөө ижил нэр, утга хэвээр) */
+    --radius: 0.375rem;               /* УТГЫГ НЬ ӨӨРЧИЛСӨН: 6px (өмнөх --radius нэрээр) - Илүү цэвэрхэн */
+
+    /* НЭМЭЛТ: Фонт болон зай авалтын хувьсагчид (Эдгээр нь шинээр нэмэгдэж байгаа тул эвдрэл үүсгэхгүй) */
+    --font-sans-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    --spacing-xxs: 0.25rem; /* 4px */
+    --spacing-xs: 0.5rem;   /* 8px */
+    --spacing-sm: 0.75rem;  /* 12px */
+    --spacing-md: 1rem;     /* 16px */
+    --spacing-lg: 1.5rem;   /* 24px */
+    --spacing-xl: 2rem;     /* 32px */
+    --spacing-xxl: 3rem;    /* 48px */
+  }
+
+  /* Body болон үндсэн типографи */
+  body {
+    font-family: var(--font-sans-family); /* Шинэ фонтын хувьсагчийг ашиглах */
+    font-weight: var(--font-weight-normal);
+    line-height: 1.65;
+    color: var(--text-dark);
+    background-color: var(--body-bg); /* Шинэ ар дэвсгэрийн хувьсагч */
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--text-link); /* Линкний өнгийг шинэ хувьсагчаар */
+    transition: var(--transition);
+  }
+
+  a:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+  }
+
+  /* Гарчгийн хэмжээ, жин, зайг стандартчилах */
+  h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+    margin-bottom: var(--spacing-sm); /* Шинэ зай авалтын хувьсагч */
+    font-weight: var(--font-weight-semibold);
+    line-height: 1.3;
+    color: var(--text-dark);
+  }
+
+  h1 { font-size: 1.875rem; } /* 30px */
+  h2 { font-size: 1.5rem; }  /* 24px */
+  h3 { font-size: 1.25rem; } /* 20px */
+  h4 { font-size: 1.125rem; } /* 18px */
+  h5 { font-size: 1rem; }    /* 16px */
+  h6 { font-size: 0.875rem; }/* 14px */
+
+  p {
+    margin-top: 0;
+    margin-bottom: var(--spacing-md); /* Шинэ зай авалтын хувьсагч */
+    line-height: 1.7;
+  }
+
+    /* Utility Classes */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* Buttons */
+  .btn {
+    display: inline-block;
+    font-weight: var(--font-weight-medium); /* Фонтын жин */
+    line-height: 1.5; /* Мөр хоорондын зай */
+    color: var(--text-dark); /* Үндсэн текстний өнгө (доороос өөрчлөгдөнө) */
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none; /* Текст сонгогдохыг хориглох */
+    background-color: transparent;
+    border: 1px solid transparent; /* Суурь хүрээ */
+    padding: var(--spacing-xs) var(--spacing-md); /* 8px 16px, илүү жигд зай */
+    font-size: 0.9375rem; /* 15px, sisi-тэй ойролцоо хэмжээ */
+    border-radius: var(--radius); /* Шинэчилсэн радиус (6px) */
+    transition: var(--transition);
+    text-decoration: none; /* Хэрэв 'a' таг байвал доогуур зураас арилгах */
+  }
+
+  .btn:hover {
+    text-decoration: none; /* Хэрэв 'a' таг байвал доогуур зураас арилгах */
+  }
+
+  .btn:focus, .btn.focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(var(--primary-color-rgb, 13, 71, 161), 0.25); /* Focus үеийн сүүдэр, primary-color-rgb-г :root-д нэмэх хэрэгтэй */
+  }
+  /* :root дотор нэмэх: --primary-color-rgb: 13, 71, 161; (таны --primary-color-ын RGB утга) */
+
+
+  /* Primary Button */
+  .btn-primary {
+    color: var(--text-white);
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+
+  .btn-primary:hover {
+    color: var(--text-white);
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+  }
+
+  .btn-primary:focus, .btn-primary.focus {
+    color: var(--text-white);
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+    /* box-shadow нь .btn:focus-оос өвлөгдөнө */
+  }
+
+  /* Outline Button */
+  .btn-outline {
+    color: var(--primary-color); /* Үндсэн өнгөөр текст */
+    border-color: var(--primary-color); /* Үндсэн өнгөөр хүрээ */
+    background-color: transparent;
+  }
+
+  .btn-outline:hover {
+    color: var(--text-white); /* Ховер үед текст цагаан */
+    background-color: var(--primary-color); /* Ховер үед дэвсгэр үндсэн өнгөөр */
+    border-color: var(--primary-color);
+  }
+
+  .btn-outline:focus, .btn-outline.focus {
+    /* box-shadow нь .btn:focus-оос өвлөгдөнө, эсвэл өөрөөр тохируулж болно */
+  }
+
+
+  /* Success Button */
+  .btn-success {
+    color: var(--text-white);
+    background-color: var(--success);
+    border-color: var(--success);
+  }
+
+  .btn-success:hover {
+    color: var(--text-white);
+    background-color: var(--success-hover);
+    border-color: var(--success-hover);
+  }
+
+  .btn-success:focus, .btn-success.focus {
+    color: var(--text-white);
+    background-color: var(--success-hover);
+    border-color: var(--success-hover);
+    box-shadow: 0 0 0 0.2rem rgba(var(--success-rgb, 40, 167, 69), 0.25);
+  }
+  /* :root дотор нэмэх: --success-rgb: 40, 167, 69; */
+
+
+  /* Danger Button */
+  .btn-danger {
+    color: var(--text-white);
+    background-color: var(--error);
+    border-color: var(--error);
+  }
+
+  .btn-danger:hover {
+    color: var(--text-white);
+    background-color: var(--error-hover);
+    border-color: var(--error-hover);
+  }
+
+  .btn-danger:focus, .btn-danger.focus {
+    color: var(--text-white);
+    background-color: var(--error-hover);
+    border-color: var(--error-hover);
+    box-shadow: 0 0 0 0.2rem rgba(var(--error-rgb, 220, 53, 69), 0.25);
+  }
+  /* :root дотор нэмэх: --error-rgb: 220, 53, 69; */
+
+  /* Хэрэв бусад товчны төрлүүд байвал (жишээ нь, .btn-secondary, .btn-light г.м)
+    тэдгээрийг ч мөн ижил зарчмаар шинэчилж болно. */
+
+    .card {
+      background-color: var(--card-bg);         /* Утга хэвээр (#ffffff) */
+      border-radius: var(--radius);            /* Шинэчилсэн утга (0.375rem - 6px) */
+      padding: var(--spacing-lg);              /* Шинэ хувьсагч (1.5rem - 24px) */
+      box-shadow: var(--card-shadow);          /* Шинэчилсэн, зөөлөн сүүдэр */
+      border: 1px solid var(--border-color);   /* Шинэчилсэн, зөөлөн хүрээний өнгө */
+      margin-bottom: var(--spacing-lg);        /* Картуудын хооронд жигд доод зай (24px) */
+    }
+
+
+    /* Home Page хэсэгт байгаа .service-card стилийг олоод дараах байдлаар өөрчилнө үү */
+  .service-card {
+    background-color: var(--card-bg);
+    border-radius: var(--radius);
+    border: 1px solid var(--border-color);
+    padding: var(--spacing-lg); /* 1.5rem */
+    transition: var(--transition);
+    /* margin-bottom-ийг grid эсвэл flex container нь зохицуулна гэж үзээд эндээс хасаж болно,
+      эсвэл .card-аас өвлөнө */
+  }
+
+  .service-card:hover {
+    /* box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); /* ХУУЧИН ХУВИЛБАР */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Арай зөөлөн, орчин үеийн сүүдэр */
+    transform: translateY(-4px); /* Бага зэрэг дээш хөдлөх эффект */
+  }
+
+  /* Modal хэсэгт байгаа .modal стилийг олоод дараах байдлаар өөрчилнө үү */
+  .modal {
+    background-color: var(--card-bg);
+    border-radius: var(--radius);
+    width: 100%;
+    max-width: 28rem; /* Энэ хэвээрээ байж болно */
+    max-height: 90vh;
+    overflow-y: auto;
+    /* box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); /* ХУУЧИН ХУВИЛБАР */
+    box-shadow: var(--card-shadow); /* ШИНЭЧИЛСЭН: Үндсэн картын сүүдрийг ашиглах */
+  }
+    
+    .fade-in {
+      animation: fadeIn 0.3s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Navbar */
+    /* Navbar */
+  .navbar {
+    background-color: var(--card-bg); /* Цагаан дэвсгэр */
+    border-bottom: 1px solid var(--border-color); /* Зөөлөн саарал хүрээ */
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: var(--spacing-xs) 0; /* Дээд доод зайг хувьсагчаар (8px) */
+    box-shadow: var(--card-shadow); /* Шинэчилсэн зөөлөн сүүдэр */
+  }
+
+  .navbar-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-weight: var(--font-weight-bold); /* Фонтын жинг хувьсагчаар */
+    font-size: 1.25rem; /* 20px - Өмнөх хэвээр, sisi-д ойрхон */
+    color: var(--primary-color); /* Үндсэн цэнхэр өнгө */
+    line-height: 1; /* Логоны мөр хоорондын зайг тааруулах */
+  }
+
+  .logo a { /* Логоны линкэнд өнгө өвлөгдөхгүй байхыг засах */
+    color: var(--primary-color);
+    text-decoration: none;
+  }
+  .logo a:hover {
+    color: var(--primary-hover);
+    text-decoration: none;
+  }
+
+
+  .nav-links {
+    display: flex;
+    gap: var(--spacing-xs); /* Линкийн хоорондын зайг багасгаж, 8px болгов (өмнө нь 1rem байсан) */
+  }
+
+  .nav-link {
+    padding: var(--spacing-xs) var(--spacing-sm); /* 8px 12px, илүү баланстай */
+    border-radius: var(--radius); /* Шинэчилсэн радиус (6px) */
+    color: var(--text-medium);   /* Идэвхгүй линкний өнгийг арай зөөлөн болгов */
+    font-weight: var(--font-weight-medium); /* Фонтын жинг бага зэрэг нэмэгдүүлэв */
+    transition: var(--transition);
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    background-color: var(--secondary-color); /* Ховер болон идэвхтэй үед цайвар цэнхэр дэвсгэр */
+    color: var(--primary-color);             /* Ховер болон идэвхтэй үед үндсэн цэнхэр өнгө */
+    text-decoration: none; /* Hover үед доогуур зураасгүй болгох */
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs); /* Айконуудын хоорондын зайг 8px болгов (өмнө нь 0.75rem байсан) */
+  }
+
+  .icon-link, .icon-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Айконыг голлуулах */
+    padding: var(--spacing-xs); /* 8px padding */
+    border-radius: var(--radius); /* Шинэчилсэн радиус (6px) */
+    color: var(--text-medium);   /* Айконы өнгийг зөөлрүүлэв */
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+
+  .icon-link:hover, .icon-button:hover {
+    background-color: var(--secondary-color); /* Ховер үед цайвар цэнхэр дэвсгэр */
+    color: var(--primary-color);             /* Ховер үед үндсэн цэнхэр өнгө */
+  }
+
+  .icon-link svg, .icon-button svg { /* SVG хэмжээг жигдлэх */
+      width: 20px; /* Эсвэл 1.25rem */
+      height: 20px;/* Эсвэл 1.25rem */
+  }
+
+  .notification-badge {
+    position: absolute;
+    top: -4px;  /* Бага зэрэг тохируулга */
+    right: -4px; /* Бага зэрэг тохируулга */
+    background-color: var(--error);
+    color: var(--text-white);
+    border-radius: 50%; /* Илүү бөөрөнхий болгох */
+    font-size: 0.7rem; /* Бага зэрэг жижигсгэв */
+    line-height: 1;
+    min-width: 1rem; /* Хамгийн бага өргөн */
+    height: 1rem;   /* Өндөр */
+    padding: 0.15rem; /* Дотор зай нэмэх */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: var(--font-weight-medium);
+  }
+
+  .profile-link {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs); /* 8px зай */
+  }
+
+  .profile-name {
+    display: none; /* Энэ хэвээрээ, JS-ээр удирдагдана */
+    font-weight: var(--font-weight-medium);
+    color: var(--text-dark);
+  }
+
+  .mobile-menu-button {
+    display: none; /* Энэ хэвээрээ, JS-ээр удирдагдана */
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-medium); /* Мобайл меню товчны өнгө */
+    padding: var(--spacing-xs); /* Padding нэмэх */
+  }
+  .mobile-menu-button:hover {
+      color: var(--primary-color);
+      background-color: var(--secondary-color);
+  }
+
+  /* Responsive Styles - Navbar хэсэгт хамаарах */
+  /* Энэ хэсгийг таны CSS-ийн @media доторх .nav-links, .mobile-menu-button-тэй холбоотой хэсэгтээ
+    нэгтгэх эсвэл дараах байдлаар Navbar-тай ойр байрлуулж болно. */
+
+  @media (max-width: 767px) {
+    .nav-links {
+      /* Таны одоогийн flex-direction: column; position: absolute; гэх мэт нь зөв. */
+      /* Нэмэлтээр: */
+      border-top: 1px solid var(--border-color); /* Дээрээс хил нэмэх */
+      box-shadow: var(--card-shadow); /* Сүүдэр нэмэх */
+    }
+    .nav-links.active {
+      display: flex;
+    }
+    .mobile-menu-button {
+      display: flex; /* SVG-г голлуулахын тулд flex болгов */
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .profile-name {
+      display: block; /* Энэ хэвээрээ */
+    }
+  }
+    /* Login Page */
+  /* Login Page - Зай авалтыг багасгаж, илүү нягт болгох */
+  .login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f0f9ff;
+    text-align: center;
+    padding: var(--spacing-md); /* Өмнө нь --spacing-lg (24px) байсныг 16px болгов */
+  }
+
+  .login-content {
+    max-width: 28rem;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .login-content > h1 { /* "NumForms" гарчиг */
+    font-size: 1.875rem;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--spacing-xs); /* 8px (хэвээрээ) */
+    color: var(--primary-color);
+  }
+
+  .login-description {
+    color: var(--text-medium);
+    /* margin-bottom: var(--spacing-xl); */ /* Хуучин: 32px */
+    margin-bottom: var(--spacing-md);      /* ШИНЭ: 16px - Картнаас өмнөх зай */
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .login-card {
+    background-color: var(--card-bg);
+    border-radius: var(--radius);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+    text-align: left;
+    /* margin-top: var(--spacing-lg); */ /* Хуучин: 24px - login-description-ий margin-bottom-оор зохицуулагдана */
+  }
+
+  .login-card-header {
+    /* padding: var(--spacing-lg); */ /* Хуучин: 24px */
+    padding: var(--spacing-md);      /* ШИНЭ: 16px */
+    border-bottom: 1px solid var(--border-color);
+    text-align: center;
+  }
+
+  .login-card-header h2 {
+    font-size: 1.25rem;
+    color: var(--text-dark);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--spacing-xs); /* 8px (хэвээрээ) */
+  }
+
+  .login-card-header p {
+    color: var(--text-medium);
+    font-size: 0.875rem; /* 14px */
+    line-height: 1.5;
+    margin-bottom: 0; /* p тагны доод зайг арилгах (header дотор) */
+  }
+
+  .login-card-content {
+    /* padding: var(--spacing-lg); */ /* Хуучин: 24px */
+    padding: var(--spacing-md);      /* ШИНЭ: 16px - Таб болон формын агуулгын зай */
+  }
+
+  .login-card-footer {
+    /* padding: var(--spacing-lg); */ /* Хуучин: 24px */
+    padding: var(--spacing-md);      /* ШИНЭ: 16px */
+    border-top: 1px solid var(--border-color);
+    background-color: var(--gray-50);
+  }
+
+  .login-card-footer .btn {
+    width: 100%;
+  }
+
+  .register-prompt {
+    /* margin-top: var(--spacing-md); */ /* Хуучин: 16px */
+    margin-top: var(--spacing-sm);      /* ШИНЭ: 12px - Нэвтрэх товч болон бүртгүүлэх линкний хоорондох зай */
+    font-size: 0.875rem;
+    color: var(--text-medium);
+    text-align: center;
+  }
+  .register-prompt a { /* Хэвээрээ */ }
+  .register-prompt a:hover { /* Хэвээрээ */ }
+
+  /* Tabs (Login Page) - Зай авалтыг тохируулах */
+  /* styles.css доторх Табны стилүүд (Бүх хуудсанд үйлчлэх ёстой) */
+
+  .tab-headers {
+    display: flex;
+    margin-bottom: var(--spacing-sm);   /* Сүүлд Нэвтрэх хуудсанд зориулж --spacing-md-ээс өөрчилсөн */
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .tab-btn {
+    flex: 1; /* Нэвтрэх болон Бүртгүүлэх хуудасны 2 табд энэ нь тэнцүү өргөн өгнө */
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: var(--spacing-sm) var(--spacing-md); /* 12px 16px - Стандарт болгосон padding */
+    cursor: pointer;
+    font-weight: var(--font-weight-medium);
+    color: var(--text-medium);
+    text-align: center;
+    transition: color .15s ease-in-out, border-color .15s ease-in-out;
+    margin-bottom: -1px; /* Доод хүрээтэй давхцуулах */
+  }
+
+  .tab-btn:hover {
+    color: var(--primary-color);
+  }
+
+  .tab-btn.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .tab-pane {
+    display: none;
+    padding-top: var(--spacing-sm); /* Нэвтрэх хуудсанд нэмсэн, энд ч үйлчилнэ */
+  }
+
+  .tab-pane.active {
+    display: block;
+    animation: fadeIn 0.3s ease-in; /* @keyframes fadeIn тодорхойлогдсон байх ёстой */
+  }
+
+  /* Хэрэв @keyframes fadeIn тодорхойлогдоогүй бол нэмэх: */
+  /*
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  */
+
+  /* Формын элементүүдийн хоорондох зайг багасгах (Энэ нь бүх формд нөлөөлнө) */
+  /* Хэрэв зөвхөн Нэвтрэх хуудсанд өөрчлөхийг хүсвэл .login-card .form-group гэж сонгоно уу */
+  .form-group {
+    /* margin-bottom: var(--spacing-md); */ /* Хуучин: 16px */
+    margin-bottom: var(--spacing-sm);      /* ШИНЭ: 12px - Формын талбаруудын хоорондох зай */
+  }
+
+  /* Нууц үг мартсан линкний зай */
+  .login-card .form-group-extra { /* Зөвхөн нэвтрэх картын доторх */
+    margin-top: var(--spacing-xs);    /* Дээрээс авах зай (8px) */
+    margin-bottom: var(--spacing-sm); /* Доороос авах зай (12px) - форм дуусахаас өмнө */
+    text-align: right;
+    font-size: 0.875rem;
+  }
+  .forgot-password-link { /* Хэвээрээ */ }
+  .forgot-password-link:hover { /* Хэвээрээ */ }
+
+
+  /* Нэвтрэх хуудасны таб доторх мэдээллийн хэсгүүдийн зайг багасгах */
+  .login-info {
+    text-align: center;
+    /* padding: var(--spacing-md) 0; */ /* Хуучин: 16px */
+    padding: var(--spacing-sm) 0;      /* ШИНЭ: 12px дээд, доод */
+  }
+  .info-text {
+    color: var(--text-medium);
+    font-size: 0.875rem;
+    /* margin-bottom: var(--spacing-md); */ /* Хуучин: 16px */
+    margin-bottom: var(--spacing-sm);      /* ШИНЭ: 12px */
+    line-height: 1.6;
+  }
+  .login-credentials {
+    background-color: var(--secondary-color);
+    /* padding: var(--spacing-md); */ /* Хуучин: 16px */
+    padding: var(--spacing-sm);      /* ШИНЭ: 12px */
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+    color: var(--text-dark);
+    text-align: left;
+    border: 1px solid var(--secondary-hover);
+    /* margin-top: var(--spacing-md); */ /* Хуучин: 16px */
+    margin-top: var(--spacing-sm);      /* ШИНЭ: 12px */
+  }
+
+  .login-credentials p:last-child { /* Хэвээрээ */ }
+  /* @keyframes fadeIn хэвээрээ (styles.css-ийн өөр хэсэгт тодорхойлогдсон байх) */
+
+  /* Нэвтрэх хуудасны таб доторх мэдээллийн хэсгүүдийн шинэчилсэн стиль */
+  .login-info {
+    text-align: center;
+    padding: var(--spacing-md) 0; /* Зай авалтыг хувьсагчаар (16px дээд, доод) */
+    /* Энэ хэсэг нь форм эсвэл бусад контентын өмнө эсвэл дараа гарч ирж болно */
+  }
+
+  .info-text {
+    color: var(--text-medium); /* Уншигдах байдлыг сайжруулсан */
+    font-size: 0.875rem; /* 14px */
+    margin-bottom: var(--spacing-md); /* Зай авалтыг хувьсагчаар (16px) */
+    line-height: 1.6;
+  }
+
+  .login-credentials {
+    background-color: var(--secondary-color); /* Маш цайвар цэнхэр дэвсгэр */
+    padding: var(--spacing-md); /* Зай авалтыг хувьсагчаар (16px) */
+    border-radius: var(--radius);
+    font-size: 0.875rem; /* 14px */
+    color: var(--text-dark); /* Цайвар дэвсгэр дээр бараан текст */
+    text-align: left;
+    border: 1px solid var(--secondary-hover); /* Бага зэргийн хүрээ */
+    margin-top: var(--spacing-md); /* Дээрх элементээс зай авах */
+  }
+
+  .login-credentials p { /* Хэрэв дотор нь <p> таг байвал */
+      margin-bottom: var(--spacing-xs); /* 8px */
+  }
+  .login-credentials p:last-child {
+      margin-bottom: 0;
+  }  /* Home Page */
+    /* index.html / Home Page - Services Grid Styles */
+  /* Updated for 2x2 layout with smaller spacing */
+
+  /* index.html / Home Page - Services Grid Styles */
+  /* Updated for 2x2 layout with smaller spacing AND limited width */
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Анхдагчаар (жижиг дэлгэцэнд) - 1 багана */
+    gap: var(--spacing-md);     /* Картуудын хоорондын зай (16px) */
+    margin-bottom: var(--spacing-xxl);
+
+    /* ШИНЭЧЛЭЛТ: Grid-ийн өргөнийг хязгаарлаж, голлуулах */
+    max-width: 700px; /* ЖИШЭЭ УТГА: Энэ тоог өөрийн хүссэн хэмжээгээр (жишээ нь, 600px, 750px, 800px) тохируулна уу */
+    margin-left: auto;  /* Голлуулах */
+    margin-right: auto; /* Голлуулах */
+  }
+
+  /* Тодорхой өргөнөөс эхлэн 2 баганатай болгох */
+  /* max-width-аас хамаарч энэ breakpoint-ийг тохируулж болно */
+  @media (min-width: 576px) { /* ЖИШЭЭ BREAKPOINT: 576px эсвэл 640px гэх мэтээр туршаарай */
+    .services-grid {
+      grid-template-columns: repeat(2, 1fr); /* Яг 2 тэнцүү баганатай болгоно */
+    }
+  }
+
+  /* Картын дотоод стилүүд хэвээрээ */
+  .service-card {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .service-card h2 {
+    font-size: 1.25rem;
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-dark);
+    margin-top: 0;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .service-card p {
+    color: var(--text-medium);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    margin-top: 0;
+    margin-bottom: var(--spacing-md);
+    flex-grow: 1;
+    min-height: 3.5em;
+  }
+
+  .service-card .btn {
+    margin-top: auto;
+    width: auto;
+    display: inline-block;
+    padding-left: var(--spacing-lg);
+    padding-right: var(--spacing-lg);
+  }
+
+  /* Welcome section styles хэвээрээ */
+  .welcome-section {
+    text-align: center;
+    margin: var(--spacing-xxl) 0;
+  }
+  .welcome-title {
+    font-size: 1.875rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-xs);
+  }
+  .welcome-text {
+    color: var(--text-medium);
+    max-width: 42rem;
+    margin: 0 auto var(--spacing-xl);
+    font-size: 1rem;
+    line-height: 1.7;
+  }  /* Responsive Styles */
+    @media (min-width: 768px) {
+      .profile-name {
+        display: block;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: var(--card-bg);
+        padding: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .mobile-menu-button {
+        display: block;
+      }
+    }
+
+
+
+    /* For register page */
+    /* Register Page Specific Styles */
+  .register-container { /* .login-container-тай төстэй */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: var(--spacing-xl);    /* Navbar-аас доош зай */
+    padding-bottom: var(--spacing-xl);
+    background-color: var(--body-bg); /* Эсвэл нэвтрэх хуудастайгаа ижил #f0f9ff */
+  }
+
+  .register-content { /* .login-content-тэй төстэй */
+    max-width: 42rem; /* Бага зэрэг өргөн байж болно, учир нь форм урт */
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .register-content h1 {
+    font-size: 1.875rem;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--spacing-xs);
+    color: var(--primary-color);
+  }
+
+  .register-description {
+    color: var(--text-medium);
+    margin-bottom: var(--spacing-lg); /* Картнаас өмнөх зай */
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .register-card {
+    /* .card классын стилийг өвлөнө гэж үзвэл (HTML-д class="card register-card") */
+    /* Эсвэл .login-card-тай ижил стилийг энд хуулна: */
+    background-color: var(--card-bg);
+    border-radius: var(--radius);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+    text-align: left;
+  }
+
+  .register-card-content {
+    padding: var(--spacing-lg); /* Илүү зайтай байлгах */
+  }
+
+  .register-card-footer {
+    padding: var(--spacing-md);
+    border-top: 1px solid var(--border-color);
+    background-color: var(--gray-50);
+    text-align: center;
+  }
+
+  .login-prompt { /* Бүртгэлтэй бол нэвтрэх линк */
+    font-size: 0.875rem;
+    color: var(--text-medium);
+  }
+
+  /* Форм доторх талбаруудыг зэрэгцүүлэх (Овог/Нэр гэх мэт) */
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Анхдагчаар нэг баганатай */
+    gap: var(--spacing-md); /* Зөвхөн босоо зай */
+  }
+
+  @media (min-width: 576px) { /* Жижиг дэлгэцнээс дээш */
+    .form-grid {
+      grid-template-columns: 1fr 1fr; /* Хоёр баганатай */
+      gap: var(--spacing-sm) var(--spacing-md); /* Босоо 12px, Хэвтээ 16px */
+    }
+    /* Зарим талбар бүтэн өргөн эзлэх шаардлагатай бол: */
+    .form-group.full-width {
+      grid-column: 1 / -1; /* Бүтэн мөрийг эзэлнэ */
+    }
+  }
+
+  /* Бүртгүүлэх товч бүтэн өргөнтэй байх */
+  .btn-block {
+      display: block;
+      width: 100%;
+  }
+
+  /* Мэйл хаягны доорх жижиг тайлбар текст */
+  .form-text.text-muted {
+      font-size: 0.8125rem; /* 13px */
+      color: var(--text-light);
+      display: block;
+      margin-top: var(--spacing-xxs);
+  }
+
+    /* For Profile Page */
+    .profile-container {
+      max-width: 36rem;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .profile-card {
+      padding: 2rem;
+    }
+
+    .profile-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .avatar {
+      width: 6rem;
+      height: 6rem;
+      border-radius: 9999px;
+      background-color: var(--secondary-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .avatar svg {
+      width: 3rem;
+      height: 3rem;
+      color: var(--primary-color);
+    }
+
+    .profile-name-large {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .profile-id {
+      color: var(--text-light);
+      font-size: 0.875rem;
+    }
+
+    .profile-details {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0.75rem 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .profile-label {
+      color: var(--text-light);
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .profile-value {
+      font-size: 0.875rem;
+    }
+
+    .profile-actions {
+      margin-top: 1rem;
+    }
+
+    /* For Notifications Page */
+    .notification-container {
+      max-width: 48rem;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .notification-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .notification-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .notification-item {
+      padding: 1rem;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      background-color: var(--card-bg);
+      transition: var(--transition);
+    }
+
+    .notification-item.unread {
+      background-color: #f0f9ff;
+      border-color: #e0f2fe;
+    }
+
+    .notification-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.5rem;
+    }
+
+    .notification-title {
+      font-weight: 500;
+      font-size: 1rem;
+    }
+
+    .notification-message {
+      color: var(--text-light);
+      font-size: 0.875rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .notification-time {
+      color: var(--text-light);
+      font-size: 0.75rem;
+    }
+
+    .notification-action {
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .notification-link {
+      color: var(--primary-color);
+      font-size: 0.875rem;
+    }
+
+    .notification-link:hover {
+      text-decoration: underline;
+    }
+
+    /* For Forms Page */
+  .forms-container {
+    max-width: 48rem; /* Энэ хэвээрээ байж болно, эсвэл --container-width-md гэх мэт хувьсагч ашиглаж болно */
+    margin: var(--spacing-xl) auto; /* 2rem -> 32px auto */
+    padding: 0 var(--spacing-md);   /* 0 1rem -> 0 16px */
+  }
+
+  /* .request-form нь .card классыг авч байгаа гэж үзвэл margin-bottom нь .card-аас өвлөгдөнө.
+    Хэрэв тусдаа элемент бол доорх margin-ыг ашиглана. */
+  .request-form { /* Энэ нь .card класс авсан байх магадлалтай */
+    margin-bottom: var(--spacing-xl); /* 2rem -> 32px, эсвэл .card-аас өвлөнө */
+  }
+
+  .form-group {
+    margin-bottom: var(--spacing-md); /* 1rem -> 16px */
+  }
+
+  .form-label {
+    display: block;
+    margin-bottom: var(--spacing-xs); /* 0.5rem -> 8px */
+    font-weight: var(--font-weight-medium); /* 500 -> хувьсагчаар */
+    font-size: 0.875rem; /* 14px (хэвээрээ) */
+    color: var(--text-dark); /* Өнгө нэмэх */
+    line-height: 1.5;      /* Мөр хоорондын зай */
+  }
+
+  .form-input,
+  .form-select,
+  .form-textarea {
+    display: block; /* Нэмэгдсэн: жигд харагдах, width: 100% зөв ажиллах */
+    width: 100%;
+    padding: var(--spacing-xs) var(--spacing-sm); /* 0.5rem (8px) -> 8px 12px болгож, илүү зайтай, уншихад хялбар болгох */
+    font-size: 0.9375rem; /* 0.875rem (14px) -> 15px болгож, лабелаас ялимгүй том */
+    font-weight: var(--font-weight-normal);
+    line-height: 1.6;
+    color: var(--text-dark);
+    background-color: var(--card-bg); /* Дэвсгэр өнгө нэмэх (#ffffff) */
+    background-clip: padding-box;
+    border: 1px solid var(--border-color); /* Шинэчилсэн утга */
+    appearance: none; /* Browser-ийн анхдагч стилийг аль болох арилгах (select-д чухал) */
+    border-radius: var(--radius); /* Шинэчилсэн утга (6px) */
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  }
+
+  .form-input:focus,
+  .form-select:focus,
+  .form-textarea:focus {
+    color: var(--text-dark);
+    background-color: var(--card-bg);
+    border-color: var(--primary-hover); /* Фокус үед хүрээний өнгийг тодруулах */
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(var(--primary-color-rgb, 13, 71, 161), 0.25); /* Фокус үеийн сүүдэр */
+  }
+
+  .form-input::placeholder,
+  .form-textarea::placeholder {
+    color: var(--text-light);
+    opacity: 1; /* Firefox-д зориулсан opacity */
+  }
+
+  /* Select элементийг илүү цэвэрхэн харагдуулах (хэрэв өмнөх санал таалагдсан бол) */
+  .form-select {
+    padding-right: var(--spacing-xl); /* Сумны зай гаргах (2rem) */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right var(--spacing-sm) center;
+    background-size: 16px 12px;
+  }
+
+  .form-select:disabled {
+    background-color: var(--gray-100);
+    opacity: 0.7;
+  }
+
+  .form-select::-ms-expand { /* IE-д зориулсан (хэрэв custom сум ашиглаж байвал) */
+    display: none;
+  }
+
+  .form-textarea {
+    min-height: 7.5rem; /* 6rem-ээс бага зэрэг нэмэгдүүлсэн (120px) */
+    resize: vertical;
+  }
+    /* For Forms Page - Request Tabs */
+  .request-tabs {
+    margin-bottom: var(--spacing-lg); /* 1.5rem -> 24px */
+    display: flex; /* Товчнуудыг нэг мөрөнд байрлуулах */
+    border-bottom: px solid var(--border-color); /* Табнуудын доогуур нэгдсэн шугам */
+
+  }
+
+  .request-tab { /* Хүсэлтийн статусын таб товч */
+    padding: var(--spacing-sm) var(--spacing-md); /* 0.5rem 1rem -> 12px 16px (Нэвтрэх табтай ойролцоо) */
+    /* margin-right: 0.5rem; /* Зэргэлдээх товчноос зай авахыг болиулж, border-bottom-оор ялгана */
+    border: none;
+    border-radius: 10px;
+    background: var(--secondary-color);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-medium); /* Идэвхгүй үед текстний өнгө (өмнө нь --text-light байсан) */
+    cursor: pointer;
+    border-bottom: 1px solid transparent;
+    transition: color .15s ease-in-out, border-color .15s ease-in-out;
+    margin-bottom: -1px; /* Доод хүрээтэй давхцуулах (container-ийн border-тэй) */
+    /* Нэмэлт: Хэрэв товчнууд хэт ойрхон байвал бага зэрэг margin-right нэмж болно */
+    margin-right: var(--spacing-xxs); /* 4px зай нэмж өгөв */
+  }
+
+  .request-tab:last-child {
+      margin-right: 0; /* Сүүлийн табны баруун талын зайг арилгах */
+  }
+
+  .request-tab:hover {
+    color: var(--primary-color);
+  }
+
+  .request-tab.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .request-panel { /* Энэ хэвээрээ */
+    display: none;
+  }
+
+  .request-panel.active { /* Энэ хэвээрээ */
+    display: block;
+    animation: fadeIn 0.3s ease-in; /* Зөөлөн эффект */
+  }
+    .request-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .request-item {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .request-header {
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .request-title {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .request-meta {
+      font-size: 0.75rem;
+      color: var(--text-light);
+    }
+
+    .request-status {
+      padding: 0.25rem 0.5rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .status-pending {
+      background-color: #fef3c7;
+      color: #92400e;
+    }
+
+    .status-approved {
+      background-color: #d1fae5;
+      color: #065f46;
+    }
+
+    .status-rejected {
+      background-color: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .request-body {
+      padding: 1rem;
+    }
+
+    .request-description {
+      margin-bottom: 1rem;
+    }
+
+    .request-comments {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .comment-title {
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    .comment-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .comment-item {
+      background-color: var(--secondary-color);
+      padding: 0.75rem;
+      border-radius: var(--radius);
+      font-size: 0.875rem;
+    }
+
+    .comment-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.25rem;
+      font-size: 0.75rem;
+    }
+
+    .comment-author {
+      font-weight: 500;
+    }
+
+    .comment-date {
+      color: var(--text-light);
+    }
+
+    .request-actions {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .btn-danger {
+      background-color: var(--error);
+      color: var(--text-white);
+    }
+
+    .btn-danger:hover {
+      opacity: 0.9;
+    }
+
+    .btn-success {
+      background-color: var(--success);
+      color: var(--text-white);
+    }
+
+    .btn-success:hover {
+      opacity: 0.9;
+    }
+
+    /* styles.css файлынхаа empty-state хэсгийг ингэж шинэчлээрэй */
+
+.empty-state {
+  text-align: center;
+  /* padding: 3rem 0; Энэ их зайг багасгана */
+  padding: var(--spacing-xl) 0; /* Жишээ нь: 2rem (32px) эсвэл 1.5rem (24px) болгож багасгах */
+  /* Илүү минимал болгохыг хүсвэл: padding: var(--spacing-lg) 0; (1.5rem эсвэл 24px) */
+  /* Эсвэл бүр: padding: var(--spacing-md) 0; (1rem эсвэл 16px) */
+  color: var(--text-light); /* Ерөнхий текстийн өнгө */
+}
+
+.empty-title { /* Өмнө нь .empty-state h3 байсан байж магадгүй, одоо .empty-title класс ашиглаж байгаа */
+  font-weight: var(--font-weight-normal); /* Үсгийн жинг хэвийн болгох (өмнө нь 500 байсан) */
+  font-size: 1rem; /* Үсгийн хэмжээг бага зэрэг жижигрүүлэх (16px, өмнө нь том байсан байж магадгүй) */
+  /* color: var(--text-light); Энийг .empty-state-д шилжүүлсэн тул эндээс авч болно */
+  margin-bottom: 0; /* Доод зайг арилгах (өөр текст байхгүй бол) */
+  line-height: 1.5;
+}
+
+/* Хэрэв та .empty-state дотор icon эсвэл нэмэлт текст ашигладаг бол тэдгээрийн стилийг энд тодорхойлно. 
+   Одоогийн HTML-д зөвхөн .empty-title байгаа.
+*/
+/*
+.empty-state .empty-icon {
+  margin-bottom: var(--spacing-sm); 
+  color: var(--gray-400, #ced4da); 
+  font-size: 2.5rem; 
+}
+
+.empty-state .empty-text {
+  font-size: 0.875rem; 
+  color: var(--text-light);
+  margin-top: var(--spacing-xs);
+}
+*/
+
+/* .request-panel.active хэсэгт өөрчлөлт оруулахгүй, 
+  зөвхөн доторх .empty-state-ийн зайг багасгаж байна.
+  Хэрэв .request-panel.active нь өөрөө хэт өндөр байвал 
+  түүнд min-height өгөөгүй эсэхийг шалгаарай. 
+  Одоогийн CSS-ээр бол дотоод контентоосоо хамаарч өндрөө авна.
+*/
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 1rem;
+    }
+
+    .modal {
+      background-color: var(--card-bg);
+      border-radius: var(--radius);
+      width: 100%;
+      max-width: 28rem;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-header {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-title {
+      font-weight: 600;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-light);
+    }
+
+    .modal-body {
+      padding: 1rem;
+    }
+
+    .modal-footer {
+      padding: 1rem;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.5rem;
+    }
+
+    /* Directory Page */
+    .directory-container {
+      max-width: 48rem;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .search-container {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 0.5rem 0.5rem 0.5rem 2.5rem;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-light);
+    }
+
+    .directory-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .staff-card {
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .staff-header {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .staff-name {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .staff-body {
+      padding: 1rem;
+    }
+
+    .staff-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    .info-icon {
+      color: var(--text-light);
+      flex-shrink: 0;
+    }
+
+    .info-link {
+      color: var(--primary-color);
+    }
+
+    .info-link:hover {
+      text-decoration: underline;
+    }
+
+    /* About Page */
+    /* styles.css - "Бидний тухай" хуудасны стилийг зөөлрүүлэх */
+
+.about-container {
+  max-width: 48rem; 
+  margin: var(--spacing-xl) auto; 
+  padding: 0 var(--spacing-md); 
+}
+
+.about-container > h1 { /* Хуудасны үндсэн гарчиг: "Бидний тухай" */
+  font-size: var(--font-size-xxl, 2.25rem); /* Үндсэн гарчгийн хэмжээ */
+  font-weight: var(--font-weight-semibold, 600); /* Хэт хүнд биш, хагас тод */
+  color: var(--text-darker, #2c3e50); /* Хэт хар биш, бараандуу өнгө */
+  text-align: center;
+  margin-bottom: var(--spacing-xl, 32px); /* Гарчгийн доорх зай */
+}
+
+.about-section { /* .card классыг авсан хэсгүүд */
+  background-color: var(--card-bg, #ffffff);
+  border: 1px solid var(--border-color-light, #e9ecef); /* Илүү зөөлөн хүрээ */
+  box-shadow: var(--shadow-sm, 0 2px 8px rgba(0, 0, 0, 0.06)); /* Илүү зөөлөн сүүдэр */
+  border-radius: var(--radius-md, 8px); /* Бага зэрэг бөөрөнхийлөх */
+  padding: var(--spacing-lg, 24px); /* Доторх зай */
+  margin-bottom: var(--spacing-lg, 24px); /* Хэсгүүдийн хоорондох зай */
+}
+
+.about-section h2 { /* Хэсгийн гарчиг: "NumForms платформ", "Холбоо барих" */
+  font-size: var(--font-size-xl, 1.75rem); /* Хэсгийн гарчгийн хэмжээ */
+  font-weight: var(--font-weight-medium, 500); /* Хүнд биш, дунд зэргийн жин */
+  color: var(--text-dark, #34495e);
+  margin-top: 0; /* Картны padding-аас болж дээд зайг энд тохируулах */
+  margin-bottom: var(--spacing-md, 16px); /* Гарчгийн доорх зай */
+  padding-bottom: var(--spacing-sm, 8px); /* Доогуур зураас байвал түүний зай */
+  border-bottom: 1px solid var(--border-color-lighter, #f1f3f5); /* Маш бүдэг доогуур зураас (заавал биш) */
+}
+
+.about-content p {
+  font-size: var(--font-size-base, 1rem); /* Энгийн текстийн хэмжээ */
+  font-weight: var(--font-weight-normal, 400); /* Энгийн жин */
+  color: var(--text-medium, #55595c); /* Хэт хар биш, зөөлөн өнгө */
+  line-height: 1.75; /* Мөр хоорондын зайг нэмэгдүүлж, уншихад хялбар болгох */
+  margin-bottom: var(--spacing-sm, 12px); /* Доү мөрүүдийн хоорондох зай */
+}
+
+.about-content p:last-child {
+  margin-bottom: 0; /* Сүүлийн догол мөрний доод зайг арилгах */
+}
+
