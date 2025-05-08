@@ -52,7 +52,7 @@ function updateProfileUI() {
     <div class="profile-label">Утас:</div>
     <div class="profile-value">${currentUser.phone || "N/A"}</div>
     
-    <div class="profile-label">Имэйл:</div>
+    <div class="profile-label">Э-мэйл:</div>
     <div class="profile-value">${currentUser.email || "N/A"}</div>
 
     
@@ -63,7 +63,6 @@ function updateProfileUI() {
     profileDetails.innerHTML += `
       <div class="profile-label">Салбар сургууль:</div>
       <div class="profile-value">${currentUser.faculty || "N/A"}</div> 
-      {/* Таны өмнөх currentUser.school-г currentUser.faculty болгосон. MOCK өгөгдөлтэй нийцүүлнэ үү. */}
 
       <div class="profile-label">Тэнхим:</div>
       <div class="profile-value">${currentUser.department || "N/A"}</div>
@@ -71,7 +70,7 @@ function updateProfileUI() {
       <div class="profile-label">Хөтөлбөр:</div>
       <div class="profile-value">${currentUser.program || "N/A"}</div>
 
-      <div class="profile-label">Курс/Түвшин:</div>
+      <div class="profile-label">Түвшин:</div>
       <div class="profile-value">${currentUser.level || "N/A"}</div>
     `;
   } else if (currentUser.userType === "staff") {
