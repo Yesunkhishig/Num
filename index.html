@@ -6,12 +6,9 @@
   <title>NumForms - Өргөдөл, хүсэлтийн систем</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    
-  </style>
-  </head>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
 <body>
   <nav class="navbar">
     <div class="container">
@@ -61,10 +58,11 @@
   </nav>
 
   <div id="loginContainer" class="container login-container">
-    <p class="login-description">Сургуулийн өргөдөл, хүсэлт илгээх, харилцах нэгдсэн платформ</p>
+    <p class="login-description">МУИС-ийн өргөдөл, хүсэлт илгээх, харилцах нэгдсэн платформ</p>
     <div class="login-content">
       <h1 style="padding-bottom: 20px;">NumForms-д тавтай морил</h1>
-      <div class="login-card"> <div class="login-card-header">
+      <div class="login-card">
+        <div class="login-card-header">
           <p>Та өөрийн эрхээр нэвтрэн оюутан болон багш ажилтны үйлчилгээг авна уу.</p>
         </div>
         <div class="login-card-content">
@@ -77,24 +75,34 @@
               <div class="tab-pane active" id="student-tab">
                 <form id="studentLoginForm">
                   <div class="form-group">
-                    <label for="student-id" class="form-label">Оюутны дугаар</label>
-                    <input type="text" id="student-id" name="studentId" class="form-input" placeholder="Оюутны дугаараа оруулна уу" required>
+                    <label for="student-email" class="form-label">Мэйл хаяг</label>
+                    <input type="email" id="student-email" name="studentEmail" class="form-input" placeholder="Мэйл хаягаа оруулна уу" required>
                   </div>
-                  <div class="form-group">
-                    <label for="student-password" class="form-label">Нууц үг</label>
-                    <input type="password" id="student-password" name="studentPassword" class="form-input" placeholder="Нууц үгээ оруулна уу" required>
+                  <div class="form-group hidden" id="student-code-section">
+                    <label for="student-code" class="form-label">Баталгаажуулах код</label>
+                    <input type="text" id="student-code" name="studentCode" class="form-input" placeholder="6 оронтой код оруулна уу">
+                  </div>
+                  <p class="error-text" id="student-error"></p>
+                  <div class="form-actions">
+                    <button type="button" class="btn btn-primary" onclick="sendVerificationCode('student')">Код илгээх</button>
+                    <button type="button" class="btn btn-primary hidden" id="student-verify-btn" onclick="verifyCode('student')">Баталгаажуулах</button>
                   </div>
                 </form>
               </div>
               <div class="tab-pane" id="staff-tab">
-                 <form id="staffLoginForm">
-                   <div class="form-group">
-                    <label for="staff-id" class="form-label">Ажилтны дугаар</label>
-                    <input type="text" id="staff-id" name="staffId" class="form-input" placeholder="Ажилтны дугаараа оруулна уу" required>
-                  </div>
+                <form id="staffLoginForm">
                   <div class="form-group">
-                    <label for="staff-password" class="form-label">Нууц үг</label>
-                    <input type="password" id="staff-password" name="staffPassword" class="form-input" placeholder="Нууц үгээ оруулна уу" required>
+                    <label for="staff-email" class="form-label">Мэйл хаяг</label>
+                    <input type="email" id="staff-email" name="staffEmail" class="form-input" placeholder="Мэйл хаягаа оруулна уу" required>
+                  </div>
+                  <div class="form-group hidden" id="staff-code-section">
+                    <label for="staff-code" class="form-label">Баталгаажуулах код</label>
+                    <input type="text" id="staff-code" name="staffCode" class="form-input" placeholder="6 оронтой код оруулна уу">
+                  </div>
+                  <p class="error-text" id="staff-error"></p>
+                  <div class="form-actions">
+                    <button type="button" class="btn btn-primary" onclick="sendVerificationCode('staff')">Код илгээх</button>
+                    <button type="button" class="btn btn-primary hidden" id="staff-verify-btn" onclick="verifyCode('staff')">Баталгаажуулах</button>
                   </div>
                 </form>
               </div>
@@ -102,7 +110,6 @@
           </div>
         </div>
         <div class="login-card-footer">
-          <button class="btn btn-primary" id="loginBtn">Нэвтрэх</button>
           <p class="register-prompt">
             Бүртгэлгүй юу? <a href="register.html">Энд дарж бүртгүүлнэ үү</a>.
           </p>
@@ -117,38 +124,35 @@
       <p class="welcome-text">NumForms платформд тавтай морил. Та доорх үйлчилгээнүүдийг ашиглах боломжтой.</p>
     </div>
     <div class="services-grid">
-      <div class="service-card"> <h2>Өргөдөл, маягт илгээх</h2>
+      <div class="service-card">
+        <h2>Өргөдөл, маягт илгээх</h2>
         <p id="requestServiceDescription">Өргөдөл илгээх, шийдвэрлэлэх явцыг хянах, хариу хүлээж авах</p>
         <a href="forms.html" class="btn btn-outline">Үзэх</a>
       </div>
-
       <div class="service-card">
         <h2>Профайлаа удирдах</h2>
         <p>Хувийн мэдээллээ харах, шинэчлэх</p>
         <a href="profile.html" class="btn btn-outline">Үзэх</a>
       </div>
-
       <div class="service-card">
         <h2>Мэдэгдэл хүлээн авах</h2>
         <p>Өргөдлийн шийдвэрлэлт, шинэ мэдээллийг хүлээн авах</p>
         <a href="notifications.html" class="btn btn-outline">Үзэх</a>
       </div>
-
       <div class="service-card">
         <h2>Ажилчдын хаяг</h2>
         <p>Багш, ажилчдын холбоо барих мэдээлэл болон суудаг өрөөний дугаарыг харах</p>
         <a href="directory.html" class="btn btn-outline">Үзэх</a>
       </div>
     </div>
-    <div class="container">
-
-    </div>
+    <div class="container"></div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   <script src="script.js"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
-<script>
-  lucide.createIcons();
-</script>
+  <script>
+    lucide.createIcons();
+  </script>
 </body>
 </html>
