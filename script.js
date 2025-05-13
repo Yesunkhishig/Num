@@ -6,7 +6,7 @@ const MOCK_STUDENT = {
 id: "20B1NUM1799",
 firstName: "Есөнхишиг",
 lastName: "Төмөрбаатар",
-email: "20B1NUM1799@stud.num.edu.mn",
+email: "22B1NUM7873@stud.num.edu.mn",
 phone: "99112233",
 userType: "student",
 faculty: "Мэдээллийн технологи, электроникийн сургууль",
