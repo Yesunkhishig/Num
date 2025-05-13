@@ -1487,3 +1487,44 @@
   margin-bottom: 0; /* Сүүлийн догол мөрний доод зайг арилгах */
 }
 
+/* QR Code Styles */
+.qr-code-container {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  text-align: center;
+  background-color: #f9f9f9;
+  transition: all 0.3s ease;
+}
+
+.qr-code-wrapper {
+  padding: 1rem;
+  background: white;
+  display: inline-block;
+  margin: 1rem auto;
+  border: 1px solid #eee;
+  border-radius: 8px;
+}
+
+.qr-code-wrapper img {
+  width: 200px;
+  height: 200px;
+  display: block;
+}
+
+.qr-instructions {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 1rem 0;
+}
+
+.loading {
+  color: #555;
+  font-style: italic;
+}
+
+.error {
+  color: #d32f2f;
+  font-weight: 500;
+}

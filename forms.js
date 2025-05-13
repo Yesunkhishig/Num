@@ -583,3 +583,133 @@ document.head.appendChild(style);
 
 // Initialize page when DOM is loaded
 document.addEventListener("DOMContentLoaded", initFormsPage);
+
+//qr
+
+function generateQRCode(formData) {
+  try {
+    // Show loading state
+    const qrCodeSection = document.getElementById('qrCodeSection');
+    const qrCodeImage = document.getElementById('qrCodeImage');
+    const downloadBtn = document.getElementById('downloadQrBtn');
+    
+    qrCodeSection.classList.remove('hidden');
+    qrCodeSection.innerHTML = '<p class="loading">QR код үүсгэж байна...</p>';
+    
+    // Create a view URL for this submission
+    const baseUrl = window.location.origin;
+    const viewUrl = `${baseUrl}/view-submission.html?id=${encodeURIComponent(formData.id)}`;
+    
+    // Generate QR code using GoQR API
+    const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(viewUrl)}&size=200x200&format=png&margin=10`;
+    
+    // Create the QR code display
+    qrCodeSection.innerHTML = `
+      <h3>Таны өргөдлийн QR код</h3>
+      <div class="qr-code-wrapper">
+        <img id="qrCodeImage" src="${qrApiUrl}" alt="QR Code" />
+      </div>
+      <p class="qr-instructions">Энэ QR кодыг хадгалаарай. Өргөдлийн төлөвийг хянах боломжтой.</p>
+      <button id="downloadQrBtn" class="btn btn-secondary">QR кодыг татах</button>
+    `;
+    
+    // Get the new elements after re-rendering
+    const newQrCodeImage = document.getElementById('qrCodeImage');
+    const newDownloadBtn = document.getElementById('downloadQrBtn');
+    
+    // Handle QR code load errors
+    newQrCodeImage.onerror = () => {
+      qrCodeSection.innerHTML = '<p class="error">QR код үүсгэхэд алдаа гарлаа. Дахин оролдоно уу.</p>';
+      console.error("Failed to load QR code image");
+    };
+    
+    // Set up download functionality
+    newDownloadBtn.addEventListener('click', () => {
+      downloadQRCode(qrApiUrl, `numforms-submission-${formData.id}.png`);
+    });
+    
+    return viewUrl;
+  } catch (error) {
+    console.error("QR code generation failed:", error);
+    document.getElementById('qrCodeSection').innerHTML = '<p class="error">QR код үүсгэхэд алдаа гарлаа.</p>';
+    return null;
+  }
+}
+
+function downloadQRCode(src, filename) {
+  try {
+    const link = document.createElement('a');
+    link.href = src;
+    link.download = filename;
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  } catch (error) {
+    console.error("Failed to download QR code:", error);
+    showToast("Алдаа", "QR кодыг татахад алдаа гарлаа", "error");
+  }
+}
+
+function handleRequestSubmit(e) {
+  e.preventDefault();
+  
+  // Get form values
+  const title = document.getElementById("title").value.trim();
+  const type = document.getElementById("type").value;
+  const description = document.getElementById("description").value.trim();
+  
+  // Validate form
+  if (!title || !type || !description) {
+    showToast("Алдаа", "Бүх талбарыг бөглөнө үү", "error");
+    return;
+  }
+  
+  // Create new request
+  const now = new Date().toISOString();
+  const newRequest = {
+    id: `req_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+    userId: currentUser.id,
+    title,
+    description,
+    status: "pending",
+    createdAt: now,
+    updatedAt: now,
+    comments: [],
+    type
+  };
+  
+  // Add to requests
+  allRequests.push(newRequest);
+  
+  // Save to localStorage
+  localStorage.setItem("numforms_requests", JSON.stringify(allRequests));
+  
+  // Generate and display QR code
+  generateQRCode(newRequest);
+  
+  // Create notification for staff
+  addNotification({
+    userId: "STAFF001", // Mock staff ID
+    title: "Шинэ өргөдөл",
+    message: `${currentUser.firstName} оюутан шинээр өргөдөл илгээлээ`,
+    isRead: false,
+    relatedTo: {
+      type: "request",
+      id: newRequest.id
+    }
+  });
+  
+  // Reset form
+  document.getElementById("newRequestForm").reset();
+  
+  // Reload data and update UI
+  loadData();
+  updateUI();
+  
+  // Show success message
+  showToast("Амжилттай", "Таны өргөдөл амжилттай илгээгдлээ");
+  
+  // Scroll to QR code
+  document.getElementById('qrCodeSection').scrollIntoView({ behavior: 'smooth' });
+}

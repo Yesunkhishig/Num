@@ -80,10 +80,30 @@
         </select>
         </div>
         <div class="form-group">
-          <label class="form-label" for="description">Дэлгэрэнгүй</label>
+          <label class="form-label">Өргөдлийн агуулга</label>
+          <iframe
+            id="JotFormIFrame-250981273824462"
+            title="Appointment Request Form"
+            onload="window.parent.scrollTo(0,0)"
+            allowtransparency="true"
+            allow="geolocation; microphone; camera; fullscreen"
+            src="https://form.jotform.com/251119434684459"
+            frameborder="0"
+            style="min-width:100%;max-width:100%;height:739px;border:none;"
+            scrolling="yes"
+            ></iframe>
           <textarea id="description" class="form-textarea" placeholder="Өргөдлийн агуулга"></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Өргөдөл илгээх</button>
+        <!--qr-->
+        <div id="qrCodeSection" class="qr-code-container hidden">
+          <h3>Таны өргөдлийн QR код</h3>
+          <div class="qr-code-wrapper">
+            <img id="qrCodeImage" src="" alt="QR Code" />
+          </div>
+          <p class="qr-instructions">Энэ QR кодыг хадгалаарай. Өргөдлийн төлөвийг хянах боломжтой.</p>
+          <button id="downloadQrBtn" class="btn btn-secondary">QR кодыг татах</button>
+        </div>
       </form>
     </div>
 
