@@ -87,6 +87,31 @@ const MOCK_REQUESTS = [
   comments: [{ id: "comment1_req3", authorId: MOCK_STAFF.id, authorName: `${MOCK_STAFF.lastName.charAt(0)}. ${MOCK_STAFF.firstName}`, authorRole: "staff", text: "Дүнг холбогдох журмын дагуу нягтлан шалгахад зөрчилгүй байсан тул хүсэлтээс татгалзлаа.", timestamp: new Date(Date.now() - 25 * 86400000).toISOString() }]
 }
 ];
+const requests = [
+  {
+    id: 'req_001',
+    userId: 'STUD001',
+    title: 'Тестын өргөдөл 1',
+    type: 'custom_request',
+    description: 'Туршилтын өргөдөл',
+    status: 'approved',
+    createdAt: new Date('2025-05-01').toISOString(),
+    updatedAt: new Date('2025-05-02').toISOString(),
+    comments: [{ userFullName: 'Админ', content: 'Баталлаа', createdAt: new Date().toISOString() }]
+  },
+  {
+    id: 'req_002',
+    userId: 'STUD002',
+    title: 'Тестын өргөдөл 2',
+    type: 'refund_request',
+    formUrl: 'https://form.jotform.com/251119434684459',
+    status: 'rejected',
+    createdAt: new Date('2025-05-03').toISOString(),
+    updatedAt: new Date('2025-05-04').toISOString(),
+    comments: [{ userFullName: 'Админ', content: 'Татгалзлаа', createdAt: new Date().toISOString() }]
+  }
+];
+localStorage.setItem('numforms_requests', JSON.stringify(requests));
 
 let currentUser = null;
 let userNotifications = [];
