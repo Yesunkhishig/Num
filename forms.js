@@ -82,9 +82,7 @@ function loadData() {
     userNotifications = [];
   }
 }
-requestTypeDescription.textContent = selectedType && requestTypeDescriptions[selectedType]
-  ? requestTypeDescriptions[selectedType]
-  : 'Өргөдлийн төрлийг сонгоно уу.';
+
 function updateUI() {
   // Update navbar profile name
   const profileName = document.getElementById("profileName");
