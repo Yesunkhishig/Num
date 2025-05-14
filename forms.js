@@ -1,7 +1,7 @@
 // JotForm URLs and Descriptions
 const jotFormUrls = {
   'r_rating_request': 'https://form.jotform.com/251119434684459',
-  'grade_dispute_complaint': 'https://form.jotform.com/251119434684459',
+  'grade_dispute_complaint': 'https://form.jotform.com/251331602827451',
   'late_registration': 'https://form.jotform.com/251119434684459',
   'course_cancellation': 'https://form.jotform.com/251119434684459',
   'add_elective_course': 'https://form.jotform.com/251119434684459',
