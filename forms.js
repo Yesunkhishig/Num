@@ -1,5 +1,67 @@
+// JotForm URLs and Descriptions
+const jotFormUrls = {
+  'r_rating_request': 'https://form.jotform.com/251119434684459',
+  'grade_dispute_complaint': 'https://form.jotform.com/251119434684459',
+  'late_registration': 'https://form.jotform.com/251119434684459',
+  'course_cancellation': 'https://form.jotform.com/251119434684459',
+  'add_elective_course': 'https://form.jotform.com/251119434684459',
+  'transfer_elective_course': 'https://form.jotform.com/251119434684459',
+  'minor_program_application': 'https://form.jotform.com/251119434684459',
+  'leave_of_absence_request': 'https://form.jotform.com/251119434684459',
+  're_enrollment_request': 'https://form.jotform.com/251119434684459',
+  'student_personal_plan': 'https://form.jotform.com/251119434684459',
+  'school_withdrawal_request': 'https://form.jotform.com/251119434684459',
+  'dormitory_checkout_request': 'https://form.jotform.com/251119434684459',
+  'refund_request': 'https://form.jotform.com/251119434684459',
+  'unified_form_report': 'https://form.jotform.com/251119434684459'
+};
 
-// Forms Page JavaScript
+const requestTypeDescriptions = {
+  'r_rating_request': 'R үнэлгээний хүсэлт нь таны сургалтын үнэлгээтэй холбоотой асуудлыг шийдвэрлэхэд чиглэнэ.',
+  'grade_dispute_complaint': 'Дүнгийн маргаан, гомдолтой холбоотой асуудлыг шийдвэрлэх хүсэлт.',
+  'late_registration': 'Хугацаа хожимдсон тохиолдолд бүртгэл хийлгэх хүсэлт.',
+  'course_cancellation': 'Сонгосон хичээлийг цуцлах хүсэлт.',
+  'add_elective_course': 'Чөлөөт сонголтын хичэел нэмэх хүсэлт.',
+  'transfer_elective_course': 'Чөлөөт сонголтын хичээлийг өөр хичээлээр солих хүсэлт.',
+  'minor_program_application': 'Хавсрага хөтөлбөрт хамрагдах хүсэлт.',
+  'leave_of_absence_request': 'Суралцагчид түр хугацаагаар чөлөө авах хүсэлт.',
+  're_enrollment_request': 'Сургуульдаа эргэн суралцах хүсэлт.',
+  'student_personal_plan': 'Суралцагчийн хувийн сургалтын төлөвлөгөөний хүсэлт.',
+  'school_withdrawal_request': 'Сургуулиас гарах хүсэлт.',
+  'dormitory_checkout_request': 'Оюутны байрнаас гарах хүсэлт.',
+  'refund_request': 'Төлбөрийн буцаалт хүсэх.',
+  'unified_form_report': 'Нэгдсэн маягтын тайлангийн хүсэлт.',
+  'custom_request': 'Өөрөө бичиж оруулах өргөдлийн хүсэлт.'
+};
+
+// Form handling
+const typeSelect = document.getElementById('type');
+const jotFormIFrame = document.getElementById('jotFormIFrame');
+const descriptionTextarea = document.getElementById('description');
+const requestTypeDescription = document.getElementById('requestTypeDescription');
+
+function updateForm() {
+  const selectedType = typeSelect.value;
+  if (selectedType === 'custom_request') {
+    jotFormIFrame.classList.add('hidden');
+    descriptionTextarea.classList.remove('hidden');
+  } else if (selectedType) {
+    jotFormIFrame.classList.remove('hidden');
+    descriptionTextarea.classList.add('hidden');
+    jotFormIFrame.src = jotFormUrls[selectedType] || 'https://form.jotform.com/251119434684459';
+  } else {
+    jotFormIFrame.classList.add('hidden');
+    descriptionTextarea.classList.add('hidden');
+  }
+  requestTypeDescription.textContent = selectedType && requestTypeDescriptions[selectedType]
+    ? requestTypeDescriptions[selectedType]
+    : 'Өргөдлийн төрлийг сонгоно уу.';
+}
+
+if (typeSelect) {
+  typeSelect.addEventListener('change', updateForm);
+  updateForm();
+}
 
 // State management
 let currentUser = null;
@@ -10,16 +72,24 @@ let currentRequestId = null;
 let currentAction = null;
 
 const REQUEST_TYPES = {
-  "course_withdrawal": "Хичээл цуцлах",
-  "refund": "Төлбөрийн буцаалт",
-  "grade_dispute": "Дүнгийн маргаан",
-  "leave": "Чөлөө авах",
-  "other": "Бусад"
+  'r_rating_request': 'R үнэлгээний хүсэлт гаргах',
+  'grade_dispute_complaint': 'Дүнгийн маргаан, гомдол барагдуулах',
+  'late_registration': 'Хожимдсон бүртгэл хийлгэх',
+  'course_cancellation': 'Хичээл цуцлуулах',
+  'add_elective_course': 'Чөлөөт сонголтын хичэел нэмүүлэх',
+  'transfer_elective_course': 'Чөлөөт сонголтын хичэел шилжүүлэх маягт',
+  'minor_program_application': 'Хавсрага хөтөлбөрийн маягт',
+  'leave_of_absence_request': 'Суралцагчид чөлөө олгох хуудас',
+  're_enrollment_request': 'Эргэн суралцах хүсэлтийн маягт',
+  'student_personal_plan': 'Суралцагчдын хувийн төлөвлөгөөний маягт',
+  'school_withdrawal_request': 'Суралцагч сургуулиас хасагдах хүсэлтийн маягт',
+  'dormitory_checkout_request': 'Байрнаас гарах хүсэлт',
+  'refund_request': 'Төлбөрийн буцаалт',
+  'unified_form_report': 'Нэгдсэн маягтын тайлан',
+  'custom_request': 'Өргөдөл'
 };
 
-// DOM Functions
 function initFormsPage() {
-  // Check if user is logged in
   const storedUser = localStorage.getItem("numforms_user");
   if (storedUser) {
     try {
@@ -30,21 +100,18 @@ function initFormsPage() {
     } catch (error) {
       console.error("Failed to parse stored user:", error);
       localStorage.removeItem("numforms_user");
-      window.location.href = "index.html"; // Redirect to login page
+      window.location.href = "index.html";
     }
   } else {
-    window.location.href = "index.html"; // Redirect to login page if not logged in
+    window.location.href = "index.html";
   }
 }
 
 function loadData() {
-  // Load requests from localStorage
   const storedRequests = localStorage.getItem("numforms_requests");
-  
   if (storedRequests) {
     try {
       allRequests = JSON.parse(storedRequests);
-      // Filter requests for student or get all for staff
       if (currentUser.userType === "student") {
         userRequests = allRequests.filter(req => req.userId === currentUser.id);
       } else {
@@ -59,8 +126,7 @@ function loadData() {
     allRequests = [];
     userRequests = [];
   }
-  
-  // Load notifications
+
   const storedNotifications = localStorage.getItem(`numforms_notifications_${currentUser.id}`);
   if (storedNotifications) {
     try {
@@ -75,35 +141,36 @@ function loadData() {
 }
 
 function updateUI() {
-  // Update navbar profile name
   const profileName = document.getElementById("profileName");
   if (profileName) {
     profileName.textContent = currentUser.firstName;
   }
-  
-  // Update notification badge
+
   updateNotificationBadge();
-  
-  // Update forms title based on user type
+
   const isStudent = currentUser.userType === "student";
   document.getElementById("formsTitle").textContent = isStudent 
-    ? "Өргөдөл, хүсэлт илгээх" 
+    ? "Өргөдөл, маягт илгээх" 
     : "Өргөдөл, хүсэлт хянах";
-  
-  // Show/hide request form for students/staff
   document.getElementById("requestForm").style.display = isStudent ? "block" : "none";
-  
-  // Filter requests by status
+
+  // Тайлан татах хэсгийг зөвхөн ажилтанд харуулах
+  const reportSection = document.getElementById("reportSection");
+  if (reportSection) {
+    reportSection.style.display = isStudent ? "none" : "block";
+    console.log("Report section display set to:", reportSection.style.display);
+  } else {
+    console.error("reportSection element not found");
+  }
+
   const pendingRequests = userRequests.filter(req => req.status === "pending");
   const approvedRequests = userRequests.filter(req => req.status === "approved");
   const rejectedRequests = userRequests.filter(req => req.status === "rejected");
-  
-  // Update counts
+
   document.getElementById("pendingCount").textContent = pendingRequests.length > 0 ? `(${pendingRequests.length})` : "";
   document.getElementById("approvedCount").textContent = approvedRequests.length > 0 ? `(${approvedRequests.length})` : "";
   document.getElementById("rejectedCount").textContent = rejectedRequests.length > 0 ? `(${rejectedRequests.length})` : "";
-  
-  // Update request lists
+
   updateRequestList("pending", pendingRequests);
   updateRequestList("approved", approvedRequests);
   updateRequestList("rejected", rejectedRequests);
@@ -112,44 +179,38 @@ function updateUI() {
 function updateRequestList(status, requests) {
   const listElement = document.getElementById(`${status}List`);
   const emptyElement = document.getElementById(`empty${status.charAt(0).toUpperCase() + status.slice(1)}`);
-  
+
   if (requests.length === 0) {
     listElement.classList.add("hidden");
     emptyElement.classList.remove("hidden");
     return;
   }
-  
+
   listElement.classList.remove("hidden");
   emptyElement.classList.add("hidden");
-  
-  // Sort requests by date (newest first)
+
   const sortedRequests = [...requests].sort((a, b) => {
     return new Date(b.createdAt) - new Date(a.createdAt);
   });
-  
-  // Clear list first
+
   listElement.innerHTML = "";
-  
-  // Create request items
+
   sortedRequests.forEach(request => {
     const requestElement = document.createElement("div");
     requestElement.className = "request-item";
     requestElement.setAttribute("data-id", request.id);
-    
-    // Format date
+
     const date = new Date(request.createdAt);
     const formattedDate = date.toLocaleDateString("mn-MN");
-    
-    // Get request type label
     const requestTypeLabel = REQUEST_TYPES[request.type] || request.type;
-    
-    // Build request item content
+
     requestElement.innerHTML = `
       <div class="request-header">
         <div>
           <h3 class="request-title">${request.title}</h3>
           <p class="request-meta">
             ${currentUser.userType === "staff" ? `Оюутны дугаар: ${request.userId} •` : `Төрөл: ${requestTypeLabel} •`} 
+            ${request.formUrl ? `<a href="${request.formUrl}" target="_blank" class="form-link">Форм харах</a> • ` : ''} 
             Огноо: ${formattedDate}
           </p>
         </div>
@@ -158,8 +219,8 @@ function updateRequestList(status, requests) {
         </span>
       </div>
       <div class="request-body">
-        <p class="request-description">${request.description}</p>
-        
+        ${request.description ? `<p class="request-description">${request.description}</p>` : ''}
+        ${request.formUrl ? `<p class="request-form-link">Форм: <a href="${request.formUrl}" target="_blank" class="form-link">Харах</a></p>` : ''}
         ${request.comments && request.comments.length > 0 ? `
           <div class="request-comments">
             <h4 class="comment-title">Тайлбар:</h4>
@@ -181,28 +242,45 @@ function updateRequestList(status, requests) {
           </div>
         ` : ''}
       </div>
-      
       <div class="request-actions">
         ${getRequestActions(request)}
       </div>
     `;
-    
+
     listElement.appendChild(requestElement);
-    
-    // Add event listeners for action buttons
-    const commentBtns = requestElement.querySelectorAll(".comment-btn");
-    commentBtns.forEach(btn => {
-      btn.addEventListener("click", () => openCommentModal(request.id));
-    });
-    
-    const approveBtns = requestElement.querySelectorAll(".approve-btn");
-    approveBtns.forEach(btn => {
-      btn.addEventListener("click", () => openActionModal(request.id, "approve"));
-    });
-    
-    const rejectBtns = requestElement.querySelectorAll(".reject-btn");
-    rejectBtns.forEach(btn => {
-      btn.addEventListener("click", () => openActionModal(request.id, "reject"));
+
+    if (currentUser.userType === "staff") {
+      const commentBtns = requestElement.querySelectorAll(".comment-btn");
+      commentBtns.forEach(btn => {
+        btn.addEventListener("click", () => openCommentModal(request.id));
+      });
+
+      const approveBtns = requestElement.querySelectorAll(".approve-btn");
+      approveBtns.forEach(btn => {
+        btn.addEventListener("click", () => openActionModal(request.id, "approve"));
+      });
+
+      const rejectBtns = requestElement.querySelectorAll(".reject-btn");
+      rejectBtns.forEach(btn => {
+        btn.addEventListener("click", () => openActionModal(request.id, "reject"));
+      });
+    }
+
+    const formLinks = requestElement.querySelectorAll(".form-link");
+    formLinks.forEach(link => {
+      link.addEventListener("click", async (e) => {
+        try {
+          const response = await fetch(link.href, { method: 'HEAD', mode: 'no-cors' });
+          if (!response.ok) {
+            e.preventDefault();
+            showToast("Алдаа", "Форм хандах боломжгүй байна. Админтай холбогдоно уу.", "error");
+          }
+        } catch (error) {
+          e.preventDefault();
+          showToast("Алдаа", "Форм хандах боломжгүй байна: Сервертэй холбогдох боломжгүй.", "error");
+          console.error("Form link check failed:", error);
+        }
+      });
     });
   });
 }
@@ -219,7 +297,7 @@ function getStatusLabel(status) {
 function getRequestActions(request) {
   const isStaff = currentUser.userType === "staff";
   const isPending = request.status === "pending";
-  
+
   if (isStaff && isPending) {
     return `
       <button class="btn btn-danger reject-btn">Татгалзах</button>
@@ -238,42 +316,44 @@ function getRequestActions(request) {
 }
 
 function setupEventListeners() {
-  // Request form submission
   const requestForm = document.getElementById("newRequestForm");
   if (requestForm) {
     requestForm.addEventListener("submit", handleRequestSubmit);
   }
-  
-  // Tab switching
+
   const tabButtons = document.querySelectorAll(".request-tab");
   tabButtons.forEach(btn => {
     btn.addEventListener("click", function() {
       const tabId = this.getAttribute("data-tab");
-      
-      // Remove active class from all tab buttons and panels
       document.querySelectorAll(".request-tab").forEach(b => b.classList.remove("active"));
       document.querySelectorAll(".request-panel").forEach(p => p.classList.remove("active"));
-      
-      // Add active class to selected tab button and panel
       this.classList.add("active");
-      document.getElementById(`${tabId}Panel`).classList.add("active");
+      const panel = document.getElementById(`${tabId}Panel`);
+      if (panel) {
+        panel.classList.add("active");
+      } else {
+        console.error("Panel not found:", `${tabId}Panel`);
+      }
     });
   });
-  
-  // Modal close buttons
+
   document.getElementById("closeRequestModal").addEventListener("click", closeModal);
   document.getElementById("cancelModal").addEventListener("click", closeModal);
-  
-  // Save comment button
   document.getElementById("saveComment").addEventListener("click", handleSaveComment);
-  
-  // Mobile menu toggle
+
+  const downloadReportBtn = document.getElementById("downloadReportBtn");
+  if (downloadReportBtn) {
+    downloadReportBtn.addEventListener("click", downloadMonthlyReport);
+    console.log("Download report button listener added");
+  } else {
+    console.error("downloadReportBtn not found");
+  }
+
   const mobileMenuBtn = document.getElementById("mobileMenuBtn");
   if (mobileMenuBtn) {
     mobileMenuBtn.addEventListener("click", toggleMobileMenu);
   }
-  
-  // Logout button
+
   const logoutBtn = document.getElementById("logoutBtn");
   if (logoutBtn) {
     logoutBtn.addEventListener("click", handleLogout);
@@ -282,41 +362,49 @@ function setupEventListeners() {
 
 function handleRequestSubmit(e) {
   e.preventDefault();
-  
-  // Get form values
+
   const title = document.getElementById("title").value.trim();
   const type = document.getElementById("type").value;
-  const description = document.getElementById("description").value.trim();
-  
-  // Validate form
-  if (!title || !type || !description) {
-    showToast("Алдаа", "Бүх талбарыг бөглөнө үү", "error");
+
+  if (!title || !type) {
+    showToast("Алдаа", "Гарчиг болон төрлийг бөглөнө үү", "error");
     return;
   }
-  
-  // Create new request
+
+  let description = "";
+  let formUrl = "";
+
+  if (type === "custom_request") {
+    description = document.getElementById("description").value.trim();
+    if (!description) {
+      showToast("Алдаа", "Өргөдлийн агуулгыг бөглөнө үү", "error");
+      return;
+    }
+  } else {
+    formUrl = jotFormUrls[type] || `https://form.jotform.com/251119434684459`;
+  }
+
   const now = new Date().toISOString();
   const newRequest = {
     id: `req_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
     userId: currentUser.id,
     title,
-    description,
+    description: description || null,
+    formUrl: formUrl || null,
     status: "pending",
     createdAt: now,
     updatedAt: now,
     comments: [],
     type
   };
-  
-  // Add to requests
+
   allRequests.push(newRequest);
-  
-  // Save to localStorage
   localStorage.setItem("numforms_requests", JSON.stringify(allRequests));
-  
-  // Create notification for staff
+
+  generateQRCode(newRequest);
+
   addNotification({
-    userId: "STAFF001", // Mock staff ID
+    userId: "STAFF001",
     title: "Шинэ өргөдөл",
     message: `${currentUser.firstName} оюутан шинээр өргөдөл илгээлээ`,
     isRead: false,
@@ -325,49 +413,29 @@ function handleRequestSubmit(e) {
       id: newRequest.id
     }
   });
-  
-  // Reset form
-  document.getElementById("title").value = "";
-  document.getElementById("type").value = "";
-  document.getElementById("description").value = "";
-  
-  // Reload data and update UI
+
+  document.getElementById("newRequestForm").reset();
+
   loadData();
   updateUI();
-  
-  // Show success message
+
   showToast("Амжилттай", "Таны өргөдөл амжилттай илгээгдлээ");
+  document.getElementById('qrCodeSection').scrollIntoView({ behavior: 'smooth' });
 }
 
 function openCommentModal(requestId) {
   currentRequestId = requestId;
   currentAction = "comment";
-  
-  // Set modal title
   document.getElementById("requestModalTitle").textContent = "Тайлбар нэмэх";
-  
-  // Clear textarea
   document.getElementById("commentText").value = "";
-  
-  // Show modal
   document.getElementById("requestModal").classList.remove("hidden");
 }
 
 function openActionModal(requestId, action) {
   currentRequestId = requestId;
   currentAction = action;
-  
-  // Set modal title
-  if (action === "approve") {
-    document.getElementById("requestModalTitle").textContent = "Өргөдөл батлах";
-  } else if (action === "reject") {
-    document.getElementById("requestModalTitle").textContent = "Өргөдөл татгалзах";
-  }
-  
-  // Clear textarea
+  document.getElementById("requestModalTitle").textContent = action === "approve" ? "Өргөдөл батлах" : "Өргөдөл татгалзах";
   document.getElementById("commentText").value = "";
-  
-  // Show modal
   document.getElementById("requestModal").classList.remove("hidden");
 }
 
@@ -378,42 +446,36 @@ function closeModal() {
 }
 
 function handleSaveComment() {
-  // Get comment text
   const commentText = document.getElementById("commentText").value.trim();
-  
-  // Validate comment
+
   if (!commentText) {
     showToast("Алдаа", "Тайлбар хоосон байж болохгүй", "error");
     return;
   }
-  
-  // Find request
+
   const requestIndex = allRequests.findIndex(req => req.id === currentRequestId);
   if (requestIndex === -1) {
     showToast("Алдаа", "Өргөдөл олдсонгүй", "error");
     closeModal();
     return;
   }
-  
-  // Create comment
+
   const comment = {
     id: `comment_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
     requestId: currentRequestId,
     userId: currentUser.id,
-    userFullName: `${currentUser.firstName} ${currentUser.lastName}`,
+    userFullName: `${currentUser.firstName} ${currentUser.lastName || ''}`,
     userType: currentUser.userType,
     content: commentText,
     createdAt: new Date().toISOString()
   };
-  
-  // Add comment to request
+
   if (!allRequests[requestIndex].comments) {
     allRequests[requestIndex].comments = [];
   }
-  
+
   allRequests[requestIndex].comments.push(comment);
-  
-  // Update status if needed
+
   if (currentAction === "approve") {
     allRequests[requestIndex].status = "approved";
     allRequests[requestIndex].updatedAt = new Date().toISOString();
@@ -421,16 +483,14 @@ function handleSaveComment() {
     allRequests[requestIndex].status = "rejected";
     allRequests[requestIndex].updatedAt = new Date().toISOString();
   }
-  
-  // Save to localStorage
+
   localStorage.setItem("numforms_requests", JSON.stringify(allRequests));
-  
-  // Notify the other party
+
   const request = allRequests[requestIndex];
   const notifyUserId = currentUser.userType === "student" ? "STAFF001" : request.userId;
   let notificationTitle = "Тайлбар нэмэгдлээ";
   let notificationMessage = `Таны өргөдөлд ${currentUser.firstName}${currentUser.userType === 'staff' ? ' багш' : ''} тайлбар нэмлээ`;
-  
+
   if (currentAction === "approve") {
     notificationTitle = "Өргөдөл батлагдлаа";
     notificationMessage = `Таны '${request.title}' батлагдлаа`;
@@ -438,7 +498,7 @@ function handleSaveComment() {
     notificationTitle = "Өргөдөл татгалзлаа";
     notificationMessage = `Таны '${request.title}' татгалзлаа`;
   }
-  
+
   addNotification({
     userId: notifyUserId,
     title: notificationTitle,
@@ -449,24 +509,19 @@ function handleSaveComment() {
       id: request.id
     }
   });
-  
-  // Close modal
+
   closeModal();
-  
-  // Reload data and update UI
   loadData();
   updateUI();
-  
-  // Show success message
+
   showToast("Амжилттай", currentAction === "comment" ? "Тайлбар нэмэгдлээ" : 
-             currentAction === "approve" ? "Өргөдөл батлагдлаа" : "Өргөдөл татгалзлаа");
+            currentAction === "approve" ? "Өргөдөл батлагдлаа" : "Өргөдөл татгалзлаа");
 }
 
 function addNotification(notification) {
-  // Load existing notifications
   const storedNotifications = localStorage.getItem(`numforms_notifications_${notification.userId}`);
   let userNotifs = [];
-  
+
   if (storedNotifications) {
     try {
       userNotifs = JSON.parse(storedNotifications);
@@ -475,20 +530,16 @@ function addNotification(notification) {
       userNotifs = [];
     }
   }
-  
-  // Add new notification
+
   const newNotification = {
     ...notification,
     id: `notif_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
     createdAt: new Date().toISOString()
   };
-  
+
   userNotifs.unshift(newNotification);
-  
-  // Save to localStorage
   localStorage.setItem(`numforms_notifications_${notification.userId}`, JSON.stringify(userNotifs));
-  
-  // Update local notifications if it's for the current user
+
   if (notification.userId === currentUser.id) {
     loadData();
     updateNotificationBadge();
@@ -510,27 +561,21 @@ function toggleMobileMenu() {
 }
 
 function handleLogout() {
-  // Clear user data
   localStorage.removeItem("numforms_user");
-  
-  // Redirect to home page
   window.location.href = "index.html";
 }
 
 function showToast(title, message, type = "success") {
-  // Create toast element
   const toast = document.createElement("div");
   toast.className = `toast ${type} fade-in`;
-  
+
   toast.innerHTML = `
     <div class="toast-header">${title}</div>
     <div class="toast-body">${message}</div>
   `;
-  
-  // Append to body
+
   document.body.appendChild(toast);
-  
-  // Remove after 3 seconds
+
   setTimeout(() => {
     toast.classList.remove("fade-in");
     toast.classList.add("fade-out");
@@ -540,70 +585,16 @@ function showToast(title, message, type = "success") {
   }, 3000);
 }
 
-// Create and add toast styles dynamically
-const style = document.createElement("style");
-style.textContent = `
-  .toast {
-    position: fixed;
-    bottom: 1rem;
-    right: 1rem;
-    min-width: 250px;
-    max-width: 350px;
-    background-color: var(--primary-color);
-    color: white;
-    border-radius: var(--radius);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    overflow: hidden;
-  }
-  
-  .toast.success {
-    background-color: var(--success);
-  }
-  
-  .toast.error {
-    background-color: var(--error);
-  }
-  
-  .toast-header {
-    padding: 0.5rem 1rem;
-    font-weight: 600;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  }
-  
-  .toast-body {
-    padding: 0.75rem 1rem;
-  }
-  
-  .ml-auto {
-    margin-left: auto;
-  }
-`;
-document.head.appendChild(style);
-
-// Initialize page when DOM is loaded
-document.addEventListener("DOMContentLoaded", initFormsPage);
-
-//qr
-
 function generateQRCode(formData) {
   try {
-    // Show loading state
     const qrCodeSection = document.getElementById('qrCodeSection');
-    const qrCodeImage = document.getElementById('qrCodeImage');
-    const downloadBtn = document.getElementById('downloadQrBtn');
-    
     qrCodeSection.classList.remove('hidden');
     qrCodeSection.innerHTML = '<p class="loading">QR код үүсгэж байна...</p>';
-    
-    // Create a view URL for this submission
+
     const baseUrl = window.location.origin;
     const viewUrl = `${baseUrl}/view-submission.html?id=${encodeURIComponent(formData.id)}`;
-    
-    // Generate QR code using GoQR API
     const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(viewUrl)}&size=200x200&format=png&margin=10`;
-    
-    // Create the QR code display
+
     qrCodeSection.innerHTML = `
       <h3>Таны өргөдлийн QR код</h3>
       <div class="qr-code-wrapper">
@@ -612,22 +603,23 @@ function generateQRCode(formData) {
       <p class="qr-instructions">Энэ QR кодыг хадгалаарай. Өргөдлийн төлөвийг хянах боломжтой.</p>
       <button id="downloadQrBtn" class="btn btn-secondary">QR кодыг татах</button>
     `;
-    
-    // Get the new elements after re-rendering
+
     const newQrCodeImage = document.getElementById('qrCodeImage');
     const newDownloadBtn = document.getElementById('downloadQrBtn');
-    
-    // Handle QR code load errors
+
+    newQrCodeImage.onload = () => {
+      newDownloadBtn.disabled = false;
+    };
+
     newQrCodeImage.onerror = () => {
       qrCodeSection.innerHTML = '<p class="error">QR код үүсгэхэд алдаа гарлаа. Дахин оролдоно уу.</p>';
       console.error("Failed to load QR code image");
     };
-    
-    // Set up download functionality
+
     newDownloadBtn.addEventListener('click', () => {
       downloadQRCode(qrApiUrl, `numforms-submission-${formData.id}.png`);
     });
-    
+
     return viewUrl;
   } catch (error) {
     console.error("QR code generation failed:", error);
@@ -636,80 +628,74 @@ function generateQRCode(formData) {
   }
 }
 
-function downloadQRCode(src, filename) {
+async function downloadQRCode(src, filename) {
   try {
+    const response = await fetch(src);
+    if (!response.ok) {
+      throw new Error('Failed to fetch QR code image');
+    }
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
     const link = document.createElement('a');
-    link.href = src;
+    link.href = url;
     link.download = filename;
-    link.style.display = 'none';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
   } catch (error) {
     console.error("Failed to download QR code:", error);
     showToast("Алдаа", "QR кодыг татахад алдаа гарлаа", "error");
   }
 }
 
-function handleRequestSubmit(e) {
-  e.preventDefault();
-  
-  // Get form values
-  const title = document.getElementById("title").value.trim();
-  const type = document.getElementById("type").value;
-  const description = document.getElementById("description").value.trim();
-  
-  // Validate form
-  if (!title || !type || !description) {
-    showToast("Алдаа", "Бүх талбарыг бөглөнө үү", "error");
-    return;
-  }
-  
-  // Create new request
-  const now = new Date().toISOString();
-  const newRequest = {
-    id: `req_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-    userId: currentUser.id,
-    title,
-    description,
-    status: "pending",
-    createdAt: now,
-    updatedAt: now,
-    comments: [],
-    type
-  };
-  
-  // Add to requests
-  allRequests.push(newRequest);
-  
-  // Save to localStorage
-  localStorage.setItem("numforms_requests", JSON.stringify(allRequests));
-  
-  // Generate and display QR code
-  generateQRCode(newRequest);
-  
-  // Create notification for staff
-  addNotification({
-    userId: "STAFF001", // Mock staff ID
-    title: "Шинэ өргөдөл",
-    message: `${currentUser.firstName} оюутан шинээр өргөдөл илгээлээ`,
-    isRead: false,
-    relatedTo: {
-      type: "request",
-      id: newRequest.id
+function downloadMonthlyReport() {
+  try {
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    const currentMonth = now.getMonth();
+
+    const resolvedRequests = allRequests.filter(req => {
+      const updatedDate = new Date(req.updatedAt);
+      return (
+        (req.status === "approved" || req.status === "rejected") &&
+        updatedDate.getFullYear() === currentYear &&
+        updatedDate.getMonth() === currentMonth
+      );
+    });
+
+    if (resolvedRequests.length === 0) {
+      showToast("Анхаар", `Энэ сард (${currentYear}/${currentMonth + 1}) шийдвэрлэгдсэн өргөдөл байхгүй байна.`, "error");
+      return;
     }
-  });
-  
-  // Reset form
-  document.getElementById("newRequestForm").reset();
-  
-  // Reload data and update UI
-  loadData();
-  updateUI();
-  
-  // Show success message
-  showToast("Амжилттай", "Таны өргөдөл амжилттай илгээгдлээ");
-  
-  // Scroll to QR code
-  document.getElementById('qrCodeSection').scrollIntoView({ behavior: 'smooth' });
+
+    const reportData = resolvedRequests.map(req => ({
+      "Өргөдлийн ID": req.id,
+      "Гарчиг": req.title,
+      "Төрөл": REQUEST_TYPES[req.type] || req.type,
+      "Оюутны ID": req.userId,
+      "Статус": getStatusLabel(req.status),
+      "Үүссэн огноо": new Date(req.createdAt).toLocaleString("mn-MN"),
+      "Шинэчлэгдсэн огноо": new Date(req.updatedAt).toLocaleString("mn-MN"),
+      "Тайлбар": req.comments ? req.comments.map(c => `${c.userFullName} (${new Date(c.createdAt).toLocaleString("mn-MN")}): ${c.content}`).join("; ") : "",
+      "Форм URL": req.formUrl || ""
+    }));
+
+    const worksheet = XLSX.utils.json_to_sheet(reportData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Тайлан");
+
+    const monthName = `${currentYear}-${currentMonth + 1}`;
+    const filename = `numforms_report_${monthName}.xlsx`;
+
+    XLSX.writeFile(workbook, filename);
+
+    showToast("Амжилттай", `Тайлан (${monthName}) амжилттай татагдлаа.`, "success");
+  } catch (error) {
+    console.error("Failed to generate report:", error);
+    showToast("Алдаа", "Тайлан татахад алдаа гарлаа.", "error");
+  }
 }
+
+// Initialize page
+document.addEventListener("DOMContentLoaded", initFormsPage);
