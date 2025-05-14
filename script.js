@@ -19,6 +19,23 @@ registeredDate: "2022-09-01",
 photoUrl: null
 };
 
+const MOCK_STUDENT1 = {
+  id: "22B1NUM7873",
+  firstName: "Мөнгөншагай",
+  lastName: "Болдбаатар",
+  email: "22B1NUM7873@stud.num.edu.mn",
+  phone: "99112233",
+  userType: "student",
+  faculty: "Мэдээллийн технологи, электроникийн сургууль",
+  department: "Програм хангамжийн инженерийн тэнхим",
+  program: "Мэдээллийн технологи",
+  level: "3-р курс",
+  nationalId: "АБ00112233",
+  gender: "эмэгтэй",
+  registeredDate: "2022-09-01",
+  photoUrl: null
+  };
+
 const MOCK_STAFF = {
 id: "STAFF001",
 firstName: "Буянхишиг",
@@ -35,6 +52,23 @@ gender: "эрэгтэй",
 registeredDate: "2018-01-15",
 photoUrl: null
 };
+
+const MOCK_STAFF1 = {
+  id: "STAFF002",
+  firstName: "Буянхишиг",
+  lastName: "Од",
+  email: "20B1NUM1799@stud.num.edu.mn",
+  phone: "77307730 - 1101",
+  userType: "staff",
+  faculty: "Мэдээллийн технологи, электроникийн сургууль",
+  department: "Мэдээллийн технологийн тэнхим",
+  position: "Тэнхимийн туслах",
+  officeRoom: "Хичээлийн байр 2 - 201",
+  nationalId: "УЕ80010111",
+  gender: "эрэгтэй",
+  registeredDate: "2018-01-15",
+  photoUrl: null
+  };
 
 const MOCK_NOTIFICATIONS = [
 {
