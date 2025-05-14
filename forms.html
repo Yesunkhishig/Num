@@ -55,7 +55,7 @@
   </nav>
 
   <div class="forms-container">
-    <h1 id="formsTitle">Өргөдөл, хүсэлт илгээх</h1>
+    <h1 id="formsTitle">Өргөдөл, маягт илгээх</h1>
 
     <div id="requestForm" class="request-form card">
       <form id="newRequestForm">
@@ -66,24 +66,35 @@
         <div class="form-group">
           <label class="form-label" for="type">Төрөл</label>
           <select id="type" name="requestType" class="form-select" required>
-            <option value="" disabled selected>Өргөдлийн төрөл сонгох</option>
+            <option value="" disabled selected>Маягтын төрөл сонгох</option>
             <option value="r_rating_request">R үнэлгээний хүсэлт гаргах</option>
-            <option value="grade_dispute_complaint">Дүнгийн маргаан, гомдол барагдуулах</option> <option value="late_registration">Хожимдсон бүртгэл хийлгэх</option>
-            <option value="course_cancellation">Хичээл цуцлуулах</option> <option value="add_elective_course">Чөлөөт сонголтын хичээл нэмүүлэх</option>
+            <option value="grade_dispute_complaint">Дүнгийн маргаан, гомдол барагдуулах</option>
+            <option value="late_registration">Хожимдсон бүртгэл хийлгэх</option>
+            <option value="course_cancellation">Хичээл цуцлуулах</option>
+            <option value="add_elective_course">Чөлөөт сонголтын хичээл нэмүүлэх</option>
             <option value="transfer_elective_course">Чөлөөт сонголтын хичээл шилжүүлэх маягт</option>
             <option value="minor_program_application">Хавсрага хөтөлбөрийн маягт</option>
-            <option value="leave_of_absence_request">Суралцагчид чөлөө олгох хуудас</option> <option value="re_enrollment_request">Эргэн суралцах хүсэлтийн маягт</option>
+            <option value="leave_of_absence_request">Суралцагчид чөлөө олгох хуудас</option>
+            <option value="re_enrollment_request">Эргэн суралцах хүсэлтийн маягт</option>
             <option value="student_personal_plan">Суралцагчдын хувийн төлөвлөгөөний маягт</option>
             <option value="school_withdrawal_request">Суралцагч сургуулиас хасагдах хүсэлтийн маягт</option>
             <option value="dormitory_checkout_request">Байрнаас гарах хүсэлт</option>
-            <option value="refund_request">Төлбөрийн буцаалт</option> <option value="unified_form_report">Нэгдсэн маягтын тайлан</option> <option value="other">Бусад</option>
-        </select>
+            <option value="refund_request">Төлбөрийн буцаалт</option>
+            <option value="unified_form_report">Нэгдсэн маягтын тайлан</option>
+            <option value="custom_request">Өргөдөл</option>
+          </select>
         </div>
+        <div class="form-group">
+  <label class="form-label" for="type">Өргөдлийн төрлийн тодорхойлолт</label>
+  <p id="requestTypeDescription" class="form-description">
+    Өргөдлийн төрлийг сонгоно уу.
+  </p>
+</div>
         <div class="form-group">
           <label class="form-label">Өргөдлийн агуулга</label>
           <iframe
-            id="JotFormIFrame-250981273824462"
-            title="Appointment Request Form"
+            id="jotFormIFrame"
+            title="Request Form"
             onload="window.parent.scrollTo(0,0)"
             allowtransparency="true"
             allow="geolocation; microphone; camera; fullscreen"
@@ -91,11 +102,11 @@
             frameborder="0"
             style="min-width:100%;max-width:100%;height:739px;border:none;"
             scrolling="yes"
-            ></iframe>
-          <textarea id="description" class="form-textarea" placeholder="Өргөдлийн агуулга"></textarea>
+            class="hidden"
+          ></iframe>
+          <textarea id="description" class="form-textarea hidden" placeholder="Өргөдлийн агуулгыг энд бичих..."></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Өргөдөл илгээх</button>
-        <!--qr-->
         <div id="qrCodeSection" class="qr-code-container hidden">
           <h3>Таны өргөдлийн QR код</h3>
           <div class="qr-code-wrapper">
@@ -149,7 +160,6 @@
     </div>
   </div>
 
-  <!-- Modal for comments and actions -->
   <div class="modal-overlay hidden" id="requestModal">
     <div class="modal">
       <div class="modal-header">
@@ -174,6 +184,769 @@
     </div>
   </div>
 
-  <script src="forms.js"></script>
+  <script>
+    // JotForm URLs for each request type (example URLs, replace with actual ones)
+    const jotFormUrls = {
+      'r_rating_request': 'https://form.jotform.com/251119434684459',
+      'grade_dispute_complaint': 'https://form.jotform.com/251119434684459',
+      'late_registration': 'https://form.jotform.com/251119434684459',
+      'course_cancellation': 'https://form.jotform.com/251119434684459',
+      'add_elective_course': 'https://form.jotform.com/251119434684459',
+      'transfer_elective_course': 'https://form.jotform.com/251119434684459',
+      'minor_program_application': 'https://form.jotform.com/251119434684459',
+      'leave_of_absence_request': 'https://form.jotform.com/251119434684459',
+      're_enrollment_request': 'https://form.jotform.com/251119434684459',
+      'student_personal_plan': 'https://form.jotform.com/251119434684459',
+      'school_withdrawal_request': 'https://form.jotform.com/251119434684459',
+      'dormitory_checkout_request': 'https://form.jotform.com/251119434684459',
+      'refund_request': 'https://form.jotform.com/251119434684459',
+      'unified_form_report': 'https://form.jotform.com/251119434684459'
+      // No URL for custom_request as no form is displayed
+    };
+
+    // Descriptions for each request type
+    const requestTypeDescriptions = {
+      'r_rating_request': 'R үнэлгээний хүсэлт нь таны сургалтын үнэлгээтэй холбоотой асуудлыг шийдвэрлэхэд чиглэнэ.',
+      'grade_dispute_complaint': 'Дүнгийн маргаан, гомдолтой холбоотой асуудлыг шийдвэрлэх хүсэлт.',
+      'late_registration': 'Хугацаа хожимдсон тохиолдолд бүртгэл хийлгэх хүсэлт.',
+      'course_cancellation': 'Сонгосон хичээлийг цуцлах хүсэлт.',
+      'add_elective_course': 'Чөлөөт сонголтын хичэел нэмэх хүсэлт.',
+      'transfer_elective_course': 'Чөлөөт сонголтын хичээлийг өөр хичээлээр солих хүсэлт.',
+      'minor_program_application': 'Хавсрага хөтөлбөрт хамрагдах хүсэлт.',
+      'leave_of_absence_request': 'Суралцагчид түр хугацаагаар чөлөө авах хүсэлт.',
+      're_enrollment_request': 'Сургуульдаа эргэн суралцах хүсэлт.',
+      'student_personal_plan': 'Суралцагчийн хувийн сургалтын төлөвлөгөөний хүсэлт.',
+      'school_withdrawal_request': 'Сургуулиас гарах хүсэлт.',
+      'dormitory_checkout_request': 'Оюутны байрнаас гарах хүсэлт.',
+      'refund_request': 'Төлбөрийн буцаалт хүсэх.',
+      'unified_form_report': 'Нэгдсэн маягтын тайлангийн хүсэлт.',
+      'custom_request': 'Өөрөө бичиж оруулах өргөдлийн хүсэлт.'
+    };
+
+    // Get DOM elements
+    const typeSelect = document.getElementById('type');
+    const jotFormIFrame = document.getElementById('jotFormIFrame');
+    const descriptionTextarea = document.getElementById('description');
+    const requestTypeDescription = document.getElementById('requestTypeDescription');
+
+    // Function to update form based on selected type
+    function updateForm() {
+      const selectedType = typeSelect.value;
+      
+      // Update JotForm iframe and textarea visibility
+      if (selectedType === 'custom_request') {
+        jotFormIFrame.classList.add('hidden');
+        descriptionTextarea.classList.remove('hidden');
+      } else if (selectedType) {
+        jotFormIFrame.classList.remove('hidden');
+        descriptionTextarea.classList.add('hidden');
+        jotFormIFrame.src = jotFormUrls[selectedType] || 'https://form.jotform.com/251119434684459'; // Default form
+      } else {
+        jotFormIFrame.classList.add('hidden');
+        descriptionTextarea.classList.add('hidden');
+      }
+
+      // Update request type description
+      requestTypeDescription.textContent = selectedType && requestTypeDescriptions[selectedType]
+        ? requestTypeDescriptions[selectedType]
+        : 'Өргөдлийн төрлийг сонгоно уу.';
+    }
+
+    // Event listener for type selection change
+    typeSelect.addEventListener('change', updateForm);
+
+    // Initialize form on page load
+    updateForm();
+
+    // Forms Page JavaScript (Integrated from forms.js)
+
+    // State management
+    let currentUser = null;
+    let userRequests = [];
+    let allRequests = [];
+    let userNotifications = [];
+    let currentRequestId = null;
+    let currentAction = null;
+
+    const REQUEST_TYPES = {
+      'r_rating_request': 'R үнэлгээний хүсэлт гаргах',
+      'grade_dispute_complaint': 'Дүнгийн маргаан, гомдол барагдуулах',
+      'late_registration': 'Хожимдсон бүртгэл хийлгэх',
+      'course_cancellation': 'Хичээл цуцлуулах',
+      'add_elective_course': 'Чөлөөт сонголтын хичээл нэмүүлэх',
+      'transfer_elective_course': 'Чөлөөт сонголтын хичэел шилжүүлэх маягт',
+      'minor_program_application': 'Хавсрага хөтөлбөрийн маягт',
+      'leave_of_absence_request': 'Суралцагчид чөлөө олгох хуудас',
+      're_enrollment_request': 'Эргэн суралцах хүсэлтийн маягт',
+      'student_personal_plan': 'Суралцагчдын хувийн төлөвлөгөөний маягт',
+      'school_withdrawal_request': 'Суралцагч сургуулиас хасагдах хүсэлтийн маягт',
+      'dormitory_checkout_request': 'Байрнаас гарах хүсэлт',
+      'refund_request': 'Төлбөрийн буцаалт',
+      'unified_form_report': 'Нэгдсэн маягтын тайлан',
+      'custom_request': 'Өргөдөл'
+    };
+
+    // DOM Functions
+    function initFormsPage() {
+      // Check if user is logged in
+      const storedUser = localStorage.getItem("numforms_user");
+      if (storedUser) {
+        try {
+          currentUser = JSON.parse(storedUser);
+          loadData();
+          updateUI();
+          setupEventListeners();
+        } catch (error) {
+          console.error("Failed to parse stored user:", error);
+          localStorage.removeItem("numforms_user");
+          window.location.href = "index.html"; // Redirect to login page
+        }
+      } else {
+        window.location.href = "index.html"; // Redirect to login page if not logged in
+      }
+    }
+
+    function loadData() {
+      // Load requests from localStorage
+      const storedRequests = localStorage.getItem("numforms_requests");
+      
+      if (storedRequests) {
+        try {
+          allRequests = JSON.parse(storedRequests);
+          // Filter requests for student or get all for staff
+          if (currentUser.userType === "student") {
+            userRequests = allRequests.filter(req => req.userId === currentUser.id);
+          } else {
+            userRequests = [...allRequests];
+          }
+        } catch (error) {
+          console.error("Failed to parse stored requests:", error);
+          allRequests = [];
+          userRequests = [];
+        }
+      } else {
+        allRequests = [];
+        userRequests = [];
+      }
+      
+      // Load notifications
+      const storedNotifications = localStorage.getItem(`numforms_notifications_${currentUser.id}`);
+      if (storedNotifications) {
+        try {
+          userNotifications = JSON.parse(storedNotifications);
+        } catch (error) {
+          console.error("Failed to parse stored notifications:", error);
+          userNotifications = [];
+        }
+      } else {
+        userNotifications = [];
+      }
+    }
+
+    function updateUI() {
+      // Update navbar profile name
+      const profileName = document.getElementById("profileName");
+      if (profileName) {
+        profileName.textContent = currentUser.firstName;
+      }
+      
+      // Update notification badge
+      updateNotificationBadge();
+      
+      // Update forms title based on user type
+      const isStudent = currentUser.userType === "student";
+      document.getElementById("formsTitle").textContent = isStudent 
+        ? "Өргөдөл, маягт илгээх" 
+        : "Өргөдөл, хүсэлт хянах";
+      
+      // Show/hide request form for students/staff
+      document.getElementById("requestForm").style.display = isStudent ? "block" : "none";
+      
+      // Filter requests by status
+      const pendingRequests = userRequests.filter(req => req.status === "pending");
+      const approvedRequests = userRequests.filter(req => req.status === "approved");
+      const rejectedRequests = userRequests.filter(req => req.status === "rejected");
+      
+      // Update counts
+      document.getElementById("pendingCount").textContent = pendingRequests.length > 0 ? `(${pendingRequests.length})` : "";
+      document.getElementById("approvedCount").textContent = approvedRequests.length > 0 ? `(${approvedRequests.length})` : "";
+      document.getElementById("rejectedCount").textContent = rejectedRequests.length > 0 ? `(${rejectedRequests.length})` : "";
+      
+      // Update request lists
+      updateRequestList("pending", pendingRequests);
+      updateRequestList("approved", approvedRequests);
+      updateRequestList("rejected", rejectedRequests);
+    }
+
+    function updateRequestList(status, requests) {
+      const listElement = document.getElementById(`${status}List`);
+      const emptyElement = document.getElementById(`empty${status.charAt(0).toUpperCase() + status.slice(1)}`);
+      
+      if (requests.length === 0) {
+        listElement.classList.add("hidden");
+        emptyElement.classList.remove("hidden");
+        return;
+      }
+      
+      listElement.classList.remove("hidden");
+      emptyElement.classList.add("hidden");
+      
+      // Sort requests by date (newest first)
+      const sortedRequests = [...requests].sort((a, b) => {
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      });
+      
+      // Clear list first
+      listElement.innerHTML = "";
+      
+      // Create request items
+      sortedRequests.forEach(request => {
+        const requestElement = document.createElement("div");
+        requestElement.className = "request-item";
+        requestElement.setAttribute("data-id", request.id);
+        
+        // Format date
+        const date = new Date(request.createdAt);
+        const formattedDate = date.toLocaleDateString("mn-MN");
+        
+        // Get request type label
+        const requestTypeLabel = REQUEST_TYPES[request.type] || request.type;
+        
+        // Build request item content
+        requestElement.innerHTML = `
+          <div class="request-header">
+            <div>
+              <h3 class="request-title">${request.title}</h3>
+              <p class="request-meta">
+                ${currentUser.userType === "staff" ? `Оюутны дугаар: ${request.userId} •` : `Төрөл: ${requestTypeLabel} •`} 
+                ${request.formUrl ? `<a href="${request.formUrl}" target="_blank">Форм харах</a> • ` : ''} 
+                Огноо: ${formattedDate}
+              </p>
+            </div>
+            <span class="request-status status-${request.status}">
+              ${getStatusLabel(request.status)}
+            </span>
+          </div>
+          <div class="request-body">
+            ${request.description ? `<p class="request-description">${request.description}</p>` : ''}
+            ${request.formUrl ? `<p class="request-form-link">Форм: <a href="${request.formUrl}" target="_blank">Харах</a></p>` : ''}
+            
+            ${request.comments && request.comments.length > 0 ? `
+              <div class="request-comments">
+                <h4 class="comment-title">Тайлбар:</h4>
+                <div class="comment-list">
+                  ${request.comments.map(comment => `
+                    <div class="comment-item">
+                      <div class="comment-header">
+                        <span class="comment-author">
+                          ${comment.userFullName} (${comment.userType === "student" ? "Оюутан" : "Ажилтан"})
+                        </span>
+                        <span class="comment-date">
+                          ${new Date(comment.createdAt).toLocaleString("mn-MN")}
+                        </span>
+                      </div>
+                      <p>${comment.content}</p>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
+          </div>
+          
+          <div class="request-actions">
+            ${getRequestActions(request)}
+          </div>
+        `;
+        
+        listElement.appendChild(requestElement);
+        
+        // Add event listeners for action buttons
+        const commentBtns = requestElement.querySelectorAll(".comment-btn");
+        commentBtns.forEach(btn => {
+          btn.addEventListener("click", () => openCommentModal(request.id));
+        });
+        
+        const approveBtns = requestElement.querySelectorAll(".approve-btn");
+        approveBtns.forEach(btn => {
+          btn.addEventListener("click", () => openActionModal(request.id, "approve"));
+        });
+        
+        const rejectBtns = requestElement.querySelectorAll(".reject-btn");
+        rejectBtns.forEach(btn => {
+          btn.addEventListener("click", () => openActionModal(request.id, "reject"));
+        });
+      });
+    }
+
+    function getStatusLabel(status) {
+      switch (status) {
+        case "pending": return "Хүлээгдэж байна";
+        case "approved": return "Батлагдсан";
+        case "rejected": return "Татгалзсан";
+        default: return "Тодорхойгүй";
+      }
+    }
+
+    function getRequestActions(request) {
+      const isStaff = currentUser.userType === "staff";
+      const isPending = request.status === "pending";
+      
+      if (isStaff && isPending) {
+        return `
+          <button class="btn btn-danger reject-btn">Татгалзах</button>
+          <div>
+            <button class="btn btn-outline comment-btn">Тайлбар нэмэх</button>
+            <button class="btn btn-success approve-btn">Зөвшөөрөх</button>
+          </div>
+        `;
+      } else {
+        return `
+          <div class="ml-auto">
+            <button class="btn btn-outline comment-btn">Тайлбар нэмэх</button>
+          </div>
+        `;
+      }
+    }
+
+    function setupEventListeners() {
+      // Request form submission
+      const requestForm = document.getElementById("newRequestForm");
+      if (requestForm) {
+        requestForm.addEventListener("submit", handleRequestSubmit);
+      }
+      
+      // Tab switching
+      const tabButtons = document.querySelectorAll(".request-tab");
+      console.log("Found tab buttons:", tabButtons.length); // Debug: Check if buttons are found
+      tabButtons.forEach(btn => {
+        btn.addEventListener("click", function() {
+          const tabId = this.getAttribute("data-tab");
+          console.log("Tab clicked:", tabId); // Debug: Log clicked tab
+          
+          // Remove active class from all tab buttons and panels
+          document.querySelectorAll(".request-tab").forEach(b => b.classList.remove("active"));
+          document.querySelectorAll(".request-panel").forEach(p => p.classList.remove("active"));
+          
+          // Add active class to selected tab button and panel
+          this.classList.add("active");
+          const panel = document.getElementById(`${tabId}Panel`);
+          if (panel) {
+            panel.classList.add("active");
+            console.log("Switched to panel:", `${tabId}Panel`); // Debug: Confirm panel switch
+          } else {
+            console.error("Panel not found:", `${tabId}Panel`);
+          }
+        });
+      });
+      
+      // Modal close buttons
+      document.getElementById("closeRequestModal").addEventListener("click", closeModal);
+      document.getElementById("cancelModal").addEventListener("click", closeModal);
+      
+      // Save comment button
+      document.getElementById("saveComment").addEventListener("click", handleSaveComment);
+      
+      // Mobile menu toggle
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener("click", toggleMobileMenu);
+      }
+      
+      // Logout button
+      const logoutBtn = document.getElementById("logoutBtn");
+      if (logoutBtn) {
+        logoutBtn.addEventListener("click", handleLogout);
+      }
+    }
+
+    function handleRequestSubmit(e) {
+      e.preventDefault();
+      
+      // Get form values
+      const title = document.getElementById("title").value.trim();
+      const type = document.getElementById("type").value;
+      
+      // Validate form
+      if (!title || !type) {
+        showToast("Алдаа", "Гарчиг болон төрлийг бөглөнө үү", "error");
+        return;
+      }
+      
+      // Handle custom_request vs JotForm submissions
+      let description = "";
+      let formUrl = "";
+      
+      if (type === "custom_request") {
+        description = document.getElementById("description").value.trim();
+        if (!description) {
+          showToast("Алдаа", "Өргөдлийн агуулгыг бөглөнө үү", "error");
+          return;
+        }
+      } else {
+        // Placeholder for JotForm submission URL
+        formUrl = `https://form.jotform.com/submissions/${Date.now()}`; // Mock URL
+      }
+      
+      // Create new request
+      const now = new Date().toISOString();
+      const newRequest = {
+        id: `req_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+        userId: currentUser.id,
+        title,
+        description: description || null,
+        formUrl: formUrl || null,
+        status: "pending",
+        createdAt: now,
+        updatedAt: now,
+        comments: [],
+        type
+      };
+      
+      // Add to requests
+      allRequests.push(newRequest);
+      
+      // Save to localStorage
+      localStorage.setItem("numforms_requests", JSON.stringify(allRequests));
+      
+      // Generate and display QR code
+      generateQRCode(newRequest);
+      
+      // Create notification for staff
+      addNotification({
+        userId: "STAFF001", // Mock staff ID
+        title: "Шинэ өргөдөл",
+        message: `${currentUser.firstName} оюутан шинээр өргөдөл илгээлээ`,
+        isRead: false,
+        relatedTo: {
+          type: "request",
+          id: newRequest.id
+        }
+      });
+      
+      // Reset form
+      document.getElementById("newRequestForm").reset();
+      
+      // Reload data and update UI
+      loadData();
+      updateUI();
+      
+      // Show success message
+      showToast("Амжилттай", "Таны өргөдөл амжилттай илгээгдлээ");
+      
+      // Scroll to QR code
+      document.getElementById('qrCodeSection').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function openCommentModal(requestId) {
+      currentRequestId = requestId;
+      currentAction = "comment";
+      
+      // Set modal title
+      document.getElementById("requestModalTitle").textContent = "Тайлбар нэмэх";
+      
+      // Clear textarea
+      document.getElementById("commentText").value = "";
+      
+      // Show modal
+      document.getElementById("requestModal").classList.remove("hidden");
+    }
+
+    function openActionModal(requestId, action) {
+      currentRequestId = requestId;
+      currentAction = action;
+      
+      // Set modal title
+      if (action === "approve") {
+        document.getElementById("requestModalTitle").textContent = "Өргөдөл батлах";
+      } else if (action === "reject") {
+        document.getElementById("requestModalTitle").textContent = "Өргөдөл татгалзах";
+      }
+      
+      // Clear textarea
+      document.getElementById("commentText").value = "";
+      
+      // Show modal
+      document.getElementById("requestModal").classList.remove("hidden");
+    }
+
+    function closeModal() {
+      document.getElementById("requestModal").classList.add("hidden");
+      currentRequestId = null;
+      currentAction = null;
+    }
+
+    function handleSaveComment() {
+      // Get comment text
+      const commentText = document.getElementById("commentText").value.trim();
+      
+      // Validate comment
+      if (!commentText) {
+        showToast("Алдаа", "Тайлбар хоосон байж болохгүй", "error");
+        return;
+      }
+      
+      // Find request
+      const requestIndex = allRequests.findIndex(req => req.id === currentRequestId);
+      if (requestIndex === -1) {
+        showToast("Алдаа", "Өргөдөл олдсонгүй", "error");
+        closeModal();
+        return;
+      }
+      
+      // Create comment
+      const comment = {
+        id: `comment_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+        requestId: currentRequestId,
+        userId: currentUser.id,
+        userFullName: `${currentUser.firstName} ${currentUser.lastName}`,
+        userType: currentUser.userType,
+        content: commentText,
+        createdAt: new Date().toISOString()
+      };
+      
+      // Add comment to request
+      if (!allRequests[requestIndex].comments) {
+        allRequests[requestIndex].comments = [];
+      }
+      
+      allRequests[requestIndex].comments.push(comment);
+      
+      // Update status if needed
+      if (currentAction === "approve") {
+        allRequests[requestIndex].status = "approved";
+        allRequests[requestIndex].updatedAt = new Date().toISOString();
+      } else if (currentAction === "reject") {
+        allRequests[requestIndex].status = "rejected";
+        allRequests[requestIndex].updatedAt = new Date().toISOString();
+      }
+      
+      // Save to localStorage
+      localStorage.setItem("numforms_requests", JSON.stringify(allRequests));
+      
+      // Notify the other party
+      const request = allRequests[requestIndex];
+      const notifyUserId = currentUser.userType === "student" ? "STAFF001" : request.userId;
+      let notificationTitle = "Тайлбар нэмэгдлээ";
+      let notificationMessage = `Таны өргөдөлд ${currentUser.firstName}${currentUser.userType === 'staff' ? ' багш' : ''} тайлбар нэмлээ`;
+      
+      if (currentAction === "approve") {
+        notificationTitle = "Өргөдөл батлагдлаа";
+        notificationMessage = `Таны '${request.title}' батлагдлаа`;
+      } else if (currentAction === "reject") {
+        notificationTitle = "Өргөдөл татгалзлаа";
+        notificationMessage = `Таны '${request.title}' татгалзлаа`;
+      }
+      
+      addNotification({
+        userId: notifyUserId,
+        title: notificationTitle,
+        message: notificationMessage,
+        isRead: false,
+        relatedTo: {
+          type: "request",
+          id: request.id
+        }
+      });
+      
+      // Close modal
+      closeModal();
+      
+      // Reload data and update UI
+      loadData();
+      updateUI();
+      
+      // Show success message
+      showToast("Амжилттай", currentAction === "comment" ? "Тайлбар нэмэгдлээ" : 
+                 currentAction === "approve" ? "Өргөдөл батлагдлаа" : "Өргөдөл татгалзлаа");
+    }
+
+    function addNotification(notification) {
+      // Load existing notifications
+      const storedNotifications = localStorage.getItem(`numforms_notifications_${notification.userId}`);
+      let userNotifs = [];
+      
+      if (storedNotifications) {
+        try {
+          userNotifs = JSON.parse(storedNotifications);
+        } catch (error) {
+          console.error("Failed to parse stored notifications:", error);
+          userNotifs = [];
+        }
+      }
+      
+      // Add new notification
+      const newNotification = {
+        ...notification,
+        id: `notif_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+        createdAt: new Date().toISOString()
+      };
+      
+      userNotifs.unshift(newNotification);
+      
+      // Save to localStorage
+      localStorage.setItem(`numforms_notifications_${notification.userId}`, JSON.stringify(userNotifs));
+      
+      // Update local notifications if it's for the current user
+      if (notification.userId === currentUser.id) {
+        loadData();
+        updateNotificationBadge();
+      }
+    }
+
+    function updateNotificationBadge() {
+      const badge = document.getElementById("notificationBadge");
+      if (badge) {
+        const unreadCount = userNotifications.filter(n => !n.isRead).length;
+        badge.textContent = unreadCount;
+        badge.style.display = unreadCount > 0 ? "flex" : "none";
+      }
+    }
+
+    function toggleMobileMenu() {
+      const navLinks = document.getElementById("navLinks");
+      navLinks.classList.toggle("active");
+    }
+
+    function handleLogout() {
+      // Clear user data
+      localStorage.removeItem("numforms_user");
+      
+      // Redirect to home page
+      window.location.href = "index.html";
+    }
+
+    function showToast(title, message, type = "success") {
+      // Create toast element
+      const toast = document.createElement("div");
+      toast.className = `toast ${type} fade-in`;
+      
+      toast.innerHTML = `
+        <div class="toast-header">${title}</div>
+        <div class="toast-body">${message}</div>
+      `;
+      
+      // Append to body
+      document.body.appendChild(toast);
+      
+      // Remove after 3 seconds
+      setTimeout(() => {
+        toast.classList.remove("fade-in");
+        toast.classList.add("fade-out");
+        setTimeout(() => {
+          document.body.removeChild(toast);
+        }, 300);
+      }, 3000);
+    }
+
+    // Create and add toast styles dynamically
+    const style = document.createElement("style");
+    style.textContent = `
+      .toast {
+        position: fixed;
+        bottom: 1rem;
+        right: 1rem;
+        min-width: 250px;
+        max-width: 350px;
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: var(--radius);
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        overflow: hidden;
+      }
+      
+      .toast.success {
+        background-color: var(--success);
+      }
+      
+      .toast.error {
+        background-color: var(--error);
+      }
+      
+      .toast-header {
+        padding: 0.5rem 1rem;
+        font-weight: 600;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      
+      .toast-body {
+        padding: 0.75rem 1rem;
+      }
+      
+      .ml-auto {
+        margin-left: auto;
+      }
+    `;
+    document.head.appendChild(style);
+
+    // QR Code Functions
+    function generateQRCode(formData) {
+      try {
+        // Show loading state
+        const qrCodeSection = document.getElementById('qrCodeSection');
+        const qrCodeImage = document.getElementById('qrCodeImage');
+        const downloadBtn = document.getElementById('downloadQrBtn');
+        
+        qrCodeSection.classList.remove('hidden');
+        qrCodeSection.innerHTML = '<p class="loading">QR код үүсгэж байна...</p>';
+        
+        // Create a view URL for this submission
+        const baseUrl = window.location.origin;
+        const viewUrl = `${baseUrl}/view-submission.html?id=${encodeURIComponent(formData.id)}`;
+        
+        // Generate QR code using GoQR API
+        const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(viewUrl)}&size=200x200&format=png&margin=10`;
+        
+        // Create the QR code display
+        qrCodeSection.innerHTML = `
+          <h3>Таны өргөдлийн QR код</h3>
+          <div class="qr-code-wrapper">
+            <img id="qrCodeImage" src="${qrApiUrl}" alt="QR Code" />
+          </div>
+          <p class="qr-instructions">Энэ QR кодыг хадгалаарай. Өргөдлийн төлөвийг хянах боломжтой.</p>
+          <button id="downloadQrBtn" class="btn btn-secondary">QR кодыг татах</button>
+        `;
+        
+        // Get the new elements after re-rendering
+        const newQrCodeImage = document.getElementById('qrCodeImage');
+        const newDownloadBtn = document.getElementById('downloadQrBtn');
+        
+        // Handle QR code load errors
+        newQrCodeImage.onerror = () => {
+          qrCodeSection.innerHTML = '<p class="error">QR код үүсгэхэд алдаа гарлаа. Дахин оролдоно уу.</p>';
+          console.error("Failed to load QR code image");
+        };
+        
+        // Set up download functionality
+        newDownloadBtn.addEventListener('click', () => {
+          downloadQRCode(qrApiUrl, `numforms-submission-${formData.id}.png`);
+        });
+        
+        return viewUrl;
+      } catch (error) {
+        console.error("QR code generation failed:", error);
+        document.getElementById('qrCodeSection').innerHTML = '<p class="error">QR код үүсгэхэд алдаа гарлаа.</p>';
+        return null;
+      }
+    }
+
+    function downloadQRCode(src, filename) {
+      try {
+        const link = document.createElement('a');
+        link.href = src;
+        link.download = filename;
+        link.style.display = 'none';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } catch (error) {
+        console.error("Failed to download QR code:", error);
+        showToast("Алдаа", "QR кодыг татахад алдаа гарлаа", "error");
+      }
+    }
+
+    // Initialize page when DOM is loaded
+    document.addEventListener("DOMContentLoaded", initFormsPage);
+  </script>
 </body>
 </html>

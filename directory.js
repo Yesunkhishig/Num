@@ -25,7 +25,7 @@ const STAFF_DIRECTORY = [
     department: "Захиргаа, Аж Ахуйн Алба",
     email: "oyuntulga.b@num.edu.mn", // Шинэчилсэн
     phone: "77307730 - 1001",
-    officeRoom: "Хичээлийн байр 1 - 101 (Удирдлагын блок)",
+    officeRoom: "Хичээлийн байр 1 - 101",
   },
   {
     id: "staff3",
@@ -95,7 +95,7 @@ const STAFF_DIRECTORY = [
     department: "Номын сан, Мэдээллийн Төв",
     email: "ariunzaya.ts@num.edu.mn", // Шинэчилсэн
     phone: "77307730 - 1135",
-    officeRoom: "Хичээлийн байр 6 (Номын сан) - 102",
+    officeRoom: "Хичээлийн байр 6 - 102",
   },
   {
     id: "staff10",
@@ -105,7 +105,7 @@ const STAFF_DIRECTORY = [
     department: "Мэдээллийн Технологийн Тэнхим",
     email: "chinguun.b@num.edu.mn", // Шинэчилсэн
     phone: "77307730 - 1150",
-    officeRoom: "Хичээлийн байр 2 - 115 (Серверийн өрөө)",
+    officeRoom: "Хичээлийн байр 2 - 115",
   }
 ];
 

@@ -1,4 +1,3 @@
-
 // Forms Page JavaScript
 
 // State management
@@ -10,11 +9,21 @@ let currentRequestId = null;
 let currentAction = null;
 
 const REQUEST_TYPES = {
-  "course_withdrawal": "Хичээл цуцлах",
-  "refund": "Төлбөрийн буцаалт",
-  "grade_dispute": "Дүнгийн маргаан",
-  "leave": "Чөлөө авах",
-  "other": "Бусад"
+  "r_rating_request": "R үнэлгээний хүсэлт гаргах",
+  "grade_dispute_complaint": "Дүнгийн маргаан, гомдол барагдуулах",
+  "late_registration": "Хожимдсон бүртгэл хийлгэх",
+  "course_cancellation": "Хичээл цуцлуулах",
+  "add_elective_course": "Чөлөөт сонголтын хичээл нэмүүлэх",
+  "transfer_elective_course": "Чөлөөт сонголтын хичэел шилжүүлэх маягт",
+  "minor_program_application": "Хавсрага хөтөлбөрийн маягт",
+  "leave_of_absence_request": "Суралцагчид чөлөө олгох хуудас",
+  "re_enrollment_request": "Эргэн суралцах хүсэлтийн маягт",
+  "student_personal_plan": "Суралцагчдын хувийн төлөвлөгөөний маягт",
+  "school_withdrawal_request": "Суралцагч сургуулиас хасагдах хүсэлтийн маягт",
+  "dormitory_checkout_request": "Байрнаас гарах хүсэлт",
+  "refund_request": "Төлбөрийн буцаалт",
+  "unified_form_report": "Нэгдсэн маягтын тайлан",
+  "custom_request": "Өргөдөл"
 };
 
 // DOM Functions
@@ -73,7 +82,9 @@ function loadData() {
     userNotifications = [];
   }
 }
-
+requestTypeDescription.textContent = selectedType && requestTypeDescriptions[selectedType]
+  ? requestTypeDescriptions[selectedType]
+  : 'Өргөдлийн төрлийг сонгоно уу.';
 function updateUI() {
   // Update navbar profile name
   const profileName = document.getElementById("profileName");
@@ -150,6 +161,7 @@ function updateRequestList(status, requests) {
           <h3 class="request-title">${request.title}</h3>
           <p class="request-meta">
             ${currentUser.userType === "staff" ? `Оюутны дугаар: ${request.userId} •` : `Төрөл: ${requestTypeLabel} •`} 
+            Огноо: ${request.formUrl ? `<a href="${request.formUrl}" target="_blank">Форм харах</a> • ` : ''} 
             Огноо: ${formattedDate}
           </p>
         </div>
@@ -158,7 +170,8 @@ function updateRequestList(status, requests) {
         </span>
       </div>
       <div class="request-body">
-        <p class="request-description">${request.description}</p>
+        ${request.description ? `<p class="request-description">${request.description}</p>` : ''}
+        ${request.formUrl ? `<p class="request-form-link">Форм: <a href="${request.formUrl}" target="_blank">Харах</a></p>` : ''}
         
         ${request.comments && request.comments.length > 0 ? `
           <div class="request-comments">
@@ -286,12 +299,27 @@ function handleRequestSubmit(e) {
   // Get form values
   const title = document.getElementById("title").value.trim();
   const type = document.getElementById("type").value;
-  const description = document.getElementById("description").value.trim();
   
   // Validate form
-  if (!title || !type || !description) {
-    showToast("Алдаа", "Бүх талбарыг бөглөнө үү", "error");
+  if (!title || !type) {
+    showToast("Алдаа", "Гарчиг болон төрлийг бөглөнө үү", "error");
     return;
+  }
+  
+  // Handle custom_request vs JotForm submissions
+  let description = "";
+  let formUrl = "";
+  
+  if (type === "custom_request") {
+    description = document.getElementById("description").value.trim();
+    if (!description) {
+      showToast("Алдаа", "Өргөдлийн агуулгыг бөглөнө үү", "error");
+      return;
+    }
+  } else {
+    // Placeholder for JotForm submission URL
+    // In a real implementation, this would be obtained from JotForm's submission callback
+    formUrl = `https://form.jotform.com/submissions/${Date.now()}`; // Mock URL
   }
   
   // Create new request
@@ -300,7 +328,8 @@ function handleRequestSubmit(e) {
     id: `req_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
     userId: currentUser.id,
     title,
-    description,
+    description: description || null,
+    formUrl: formUrl || null,
     status: "pending",
     createdAt: now,
     updatedAt: now,
@@ -313,6 +342,9 @@ function handleRequestSubmit(e) {
   
   // Save to localStorage
   localStorage.setItem("numforms_requests", JSON.stringify(allRequests));
+  
+  // Generate and display QR code
+  generateQRCode(newRequest);
   
   // Create notification for staff
   addNotification({
@@ -327,9 +359,7 @@ function handleRequestSubmit(e) {
   });
   
   // Reset form
-  document.getElementById("title").value = "";
-  document.getElementById("type").value = "";
-  document.getElementById("description").value = "";
+  document.getElementById("newRequestForm").reset();
   
   // Reload data and update UI
   loadData();
@@ -337,6 +367,9 @@ function handleRequestSubmit(e) {
   
   // Show success message
   showToast("Амжилттай", "Таны өргөдөл амжилттай илгээгдлээ");
+  
+  // Scroll to QR code
+  document.getElementById('qrCodeSection').scrollIntoView({ behavior: 'smooth' });
 }
 
 function openCommentModal(requestId) {
@@ -581,11 +614,7 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// Initialize page when DOM is loaded
-document.addEventListener("DOMContentLoaded", initFormsPage);
-
-//qr
-
+// QR Code Functions
 function generateQRCode(formData) {
   try {
     // Show loading state
@@ -651,65 +680,5 @@ function downloadQRCode(src, filename) {
   }
 }
 
-function handleRequestSubmit(e) {
-  e.preventDefault();
-  
-  // Get form values
-  const title = document.getElementById("title").value.trim();
-  const type = document.getElementById("type").value;
-  const description = document.getElementById("description").value.trim();
-  
-  // Validate form
-  if (!title || !type || !description) {
-    showToast("Алдаа", "Бүх талбарыг бөглөнө үү", "error");
-    return;
-  }
-  
-  // Create new request
-  const now = new Date().toISOString();
-  const newRequest = {
-    id: `req_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-    userId: currentUser.id,
-    title,
-    description,
-    status: "pending",
-    createdAt: now,
-    updatedAt: now,
-    comments: [],
-    type
-  };
-  
-  // Add to requests
-  allRequests.push(newRequest);
-  
-  // Save to localStorage
-  localStorage.setItem("numforms_requests", JSON.stringify(allRequests));
-  
-  // Generate and display QR code
-  generateQRCode(newRequest);
-  
-  // Create notification for staff
-  addNotification({
-    userId: "STAFF001", // Mock staff ID
-    title: "Шинэ өргөдөл",
-    message: `${currentUser.firstName} оюутан шинээр өргөдөл илгээлээ`,
-    isRead: false,
-    relatedTo: {
-      type: "request",
-      id: newRequest.id
-    }
-  });
-  
-  // Reset form
-  document.getElementById("newRequestForm").reset();
-  
-  // Reload data and update UI
-  loadData();
-  updateUI();
-  
-  // Show success message
-  showToast("Амжилттай", "Таны өргөдөл амжилттай илгээгдлээ");
-  
-  // Scroll to QR code
-  document.getElementById('qrCodeSection').scrollIntoView({ behavior: 'smooth' });
-}
+// Initialize page when DOM is loaded
+document.addEventListener("DOMContentLoaded", initFormsPage);
