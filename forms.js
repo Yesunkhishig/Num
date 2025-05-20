@@ -1,5 +1,6 @@
 // JotForm URLs and Descriptions
 const jotFormUrls = {
+<<<<<<< HEAD
   'r_rating_request': 'https://form.jotform.com/251119434684459',
   'grade_dispute_complaint': 'https://form.jotform.com/251331717312447',
   'late_registration': 'https://form.jotform.com/251119434684459',
@@ -14,6 +15,22 @@ const jotFormUrls = {
   'dormitory_checkout_request': 'https://form.jotform.com/251119434684459',
   'refund_request': 'https://form.jotform.com/251119434684459',
   'unified_form_report': 'https://form.jotform.com/251119434684459'
+=======
+  'r_rating_request': 'https://form.jotform.com/251331602827451',
+  'grade_dispute_complaint': 'https://form.jotform.com/251331602827451',
+  'late_registration': 'https://form.jotform.com/251331602827451',
+  'course_cancellation': 'https://form.jotform.com/251331602827451',
+  'add_elective_course': 'https://form.jotform.com/251331602827451',
+  'transfer_elective_course': 'https://form.jotform.com/251331602827451',
+  'minor_program_application': 'https://form.jotform.com/251331602827451',
+  'leave_of_absence_request': 'https://form.jotform.com/251331602827451',
+  're_enrollment_request': 'https://form.jotform.com/251331602827451',
+  'student_personal_plan': 'https://form.jotform.com/251331602827451',
+  'school_withdrawal_request': 'https://form.jotform.com/251331602827451',
+  'dormitory_checkout_request': 'https://form.jotform.com/251331602827451',
+  'refund_request': 'https://form.jotform.com/251331602827451',
+  'unified_form_report': 'https://form.jotform.com/251331602827451'
+>>>>>>> e482e7c8e5d023cfc34da95654ce91603cd060ef
 };
 
 const requestTypeDescriptions = {
@@ -48,7 +65,11 @@ function updateForm() {
   } else if (selectedType) {
     jotFormIFrame.classList.remove('hidden');
     descriptionTextarea.classList.add('hidden');
+<<<<<<< HEAD
     jotFormIFrame.src = jotFormUrls[selectedType] || 'https://form.jotform.com/251331717312447';
+=======
+    jotFormIFrame.src = jotFormUrls[selectedType] || 'https://form.jotform.com/251331602827451';
+>>>>>>> e482e7c8e5d023cfc34da95654ce91603cd060ef
   } else {
     jotFormIFrame.classList.add('hidden');
     descriptionTextarea.classList.add('hidden');
@@ -381,7 +402,7 @@ function handleRequestSubmit(e) {
       return;
     }
   } else {
-    formUrl = jotFormUrls[type] || `https://form.jotform.com/251119434684459`;
+    formUrl = jotFormUrls[type] || `https://form.jotform.com/251331602827451`;
   }
 
   const now = new Date().toISOString();

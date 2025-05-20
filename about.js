@@ -86,5 +86,24 @@ function handleLogout() {
   window.location.href = "index.html";
 }
 
+// Google Maps initialization
+function initMap() {
+  // Coordinates for Ulaanbaatar, Mongolia (city center)
+  const ulaanbaatar = { lat: 47.92029609404401, lng: 106.92744429199034 }; 
+
+  // Create a map centered at Ulaanbaatar
+  const map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 12,
+    center: ulaanbaatar,
+  });
+
+  // Add a marker at Ulaanbaatar
+  new google.maps.Marker({
+    position: ulaanbaatar,
+    map: map,
+    title: "NumForms - Улаанбаатар",
+  });
+}
+
 // Initialize page when DOM is loaded
 document.addEventListener("DOMContentLoaded", initAboutPage);

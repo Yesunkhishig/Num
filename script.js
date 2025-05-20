@@ -39,7 +39,7 @@ const MOCK_STUDENT1 = {
 const MOCK_STAFF = {
 id: "STAFF001",
 firstName: "Буянхишиг",
-lastName: "Од",
+lastName: "Төртогтох",
 email: "20B1NUM1799@stud.num.edu.mn",
 phone: "77307730 - 1101",
 userType: "staff",
@@ -48,7 +48,7 @@ department: "Мэдээллийн технологийн тэнхим",
 position: "Тэнхимийн туслах",
 officeRoom: "Хичээлийн байр 2 - 201",
 nationalId: "УЕ80010111",
-gender: "эрэгтэй",
+gender: "эмэгтэй",
 registeredDate: "2018-01-15",
 photoUrl: null
 };
