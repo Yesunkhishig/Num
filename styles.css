@@ -1578,3 +1578,86 @@
   height: 400px;
   width: 100%;
 }
+
+/* Auth Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.modal-header {
+  margin-bottom: 20px;
+}
+
+.modal-footer {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.error-text {
+  color: #e74c3c;
+  margin-top: 10px;
+}
+
+.error-text.hidden {
+  display: none;
+}
+
+/* Submission View Styles */
+.submission-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.submission-header {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+.submission-details {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.detail-row {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.detail-label {
+  font-weight: bold;
+  min-width: 150px;
+}
+
+.unauthorized-message {
+  text-align: center;
+  padding: 2rem;
+  color: #e74c3c;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}

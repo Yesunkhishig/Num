@@ -1,5 +1,21 @@
 // JotForm URLs and Descriptions
 const jotFormUrls = {
+<<<<<<< HEAD
+  'r_rating_request': 'https://form.jotform.com/251119434684459',
+  'grade_dispute_complaint': 'https://form.jotform.com/251331717312447',
+  'late_registration': 'https://form.jotform.com/251119434684459',
+  'course_cancellation': 'https://form.jotform.com/251119434684459',
+  'add_elective_course': 'https://form.jotform.com/251119434684459',
+  'transfer_elective_course': 'https://form.jotform.com/251119434684459',
+  'minor_program_application': 'https://form.jotform.com/251119434684459',
+  'leave_of_absence_request': 'https://form.jotform.com/251119434684459',
+  're_enrollment_request': 'https://form.jotform.com/251119434684459',
+  'student_personal_plan': 'https://form.jotform.com/251119434684459',
+  'school_withdrawal_request': 'https://form.jotform.com/251119434684459',
+  'dormitory_checkout_request': 'https://form.jotform.com/251119434684459',
+  'refund_request': 'https://form.jotform.com/251119434684459',
+  'unified_form_report': 'https://form.jotform.com/251119434684459'
+=======
   'r_rating_request': 'https://form.jotform.com/251331602827451',
   'grade_dispute_complaint': 'https://form.jotform.com/251331602827451',
   'late_registration': 'https://form.jotform.com/251331602827451',
@@ -14,6 +30,7 @@ const jotFormUrls = {
   'dormitory_checkout_request': 'https://form.jotform.com/251331602827451',
   'refund_request': 'https://form.jotform.com/251331602827451',
   'unified_form_report': 'https://form.jotform.com/251331602827451'
+>>>>>>> e482e7c8e5d023cfc34da95654ce91603cd060ef
 };
 
 const requestTypeDescriptions = {
@@ -48,7 +65,11 @@ function updateForm() {
   } else if (selectedType) {
     jotFormIFrame.classList.remove('hidden');
     descriptionTextarea.classList.add('hidden');
+<<<<<<< HEAD
+    jotFormIFrame.src = jotFormUrls[selectedType] || 'https://form.jotform.com/251331717312447';
+=======
     jotFormIFrame.src = jotFormUrls[selectedType] || 'https://form.jotform.com/251331602827451';
+>>>>>>> e482e7c8e5d023cfc34da95654ce91603cd060ef
   } else {
     jotFormIFrame.classList.add('hidden');
     descriptionTextarea.classList.add('hidden');
@@ -401,6 +422,18 @@ function handleRequestSubmit(e) {
   allRequests.push(newRequest);
   localStorage.setItem("numforms_requests", JSON.stringify(allRequests));
 
+  // After creating newRequest
+if (newRequest.type === 'grade_dispute_complaint') {
+  newRequest.assigned_to = 'staff4'; // Assign specifically to staff4
+  newRequest.access_key = generateAccessKey(); // For QR code access
+}
+
+// Add this helper function
+function generateAccessKey() {
+  return Math.random().toString(36).substring(2, 15) + 
+         Math.random().toString(36).substring(2, 15);
+}
+
   generateQRCode(newRequest);
 
   addNotification({
@@ -522,6 +555,13 @@ function addNotification(notification) {
   const storedNotifications = localStorage.getItem(`numforms_notifications_${notification.userId}`);
   let userNotifs = [];
 
+  if (notification.relatedTo?.type === 'request') {
+    const request = allRequests.find(r => r.id === notification.relatedTo.id);
+    if (request?.type === 'grade_dispute_complaint') {
+      notification.userId = 'staff4'; // Override to only notify staff4
+    }
+  }
+
   if (storedNotifications) {
     try {
       userNotifs = JSON.parse(storedNotifications);
@@ -586,6 +626,8 @@ function showToast(title, message, type = "success") {
 }
 
 function generateQRCode(formData) {
+  const baseUrl = window.location.origin;
+  const viewUrl = `${baseUrl}/view-submission.html?id=${formData.id}`;
   try {
     const qrCodeSection = document.getElementById('qrCodeSection');
     qrCodeSection.classList.remove('hidden');

@@ -1,0 +1,156 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Маягтууд - NumForms</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- XLSX сан нэмэх -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <style>
+      .report-section {
+        margin: 20px 0;
+        text-align: right; /* Товчийг баруун талд байрлуулах */
+        padding: 10px;
+      }
+      .report-section .btn {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #6c757d; /* btn-secondary-ийн өнгө */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .report-section .btn:hover {
+        background-color: #5a6268;
+      }
+      .hidden {
+        display: none !important; /* hidden классыг баталгаажуулах */
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="container">
+        <div class="navbar-content">
+          <div class="logo">
+            <a href="index.html">NumForms</a>
+          </div>
+          <div class="nav-links" id="navLinks">
+            <a href="index.html" class="nav-link">Нүүр</a>
+            <a href="forms.html" class="nav-link active">Маягтууд</a>
+            <a href="directory.html" class="nav-link">Ажилчдын хаяг</a>
+            <a href="about.html" class="nav-link">Бидний тухай</a>
+          </div>
+          <div class="nav-actions">
+            <a href="notifications.html" class="icon-link notifications-link">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0"></path>
+              </svg>
+              <span class="notification-badge" id="notificationBadge"></span>
+            </a>
+            <a href="profile.html" class="icon-link profile-link">
+              <span class="profile-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </span>
+              <span class="profile-name" id="profileName"></span>
+            </a>
+            <button id="logoutBtn" class="icon-button logout-button">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+              </svg>
+            </button>
+          </div>
+          <button class="mobile-menu-button" id="mobileMenuBtn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+  
+  <div class="submission-container">
+    <div class="submission-details" id="submissionContent">
+      <div class="unauthorized-message hidden" id="unauthorizedMessage">
+        <h2>Та уг өргөдөлд хандах эрхгүй байна</h2>
+        <p>Зөвхөн хариуцагч мэргэжилтэн л энэ өргөдлийг харах боломжтой</p>
+        <a href="index.html" class="btn btn-primary">Нүүр хуудас руу буцах</a>
+      </div>
+      
+      <div id="authorizedContent">
+        <div class="submission-header">
+          <h1 id="submissionTitle">Өргөдлийн дэлгэрэнгүй</h1>
+          <div class="submission-meta">
+            <span id="submissionId"></span> | 
+            <span id="submissionStatus"></span> | 
+            <span id="submissionDate"></span>
+    
+
+          </div>
+        </div>
+        <div class="form-group">
+            <label class="form-label">Өргөдлийн агуулга</label>
+            <iframe
+              id="jotFormIFrame"
+              title="Request Form"
+              onload="window.parent.scrollTo(0,0)"
+              allowtransparency="true"
+              allow="geolocation; microphone; camera; fullscreen"
+              src="https://www.jotform.com/assign/251331717312447/231154514975054"
+              frameborder="0"
+              style="min-width:100%;max-width:100%;height:739px;border:none;"
+              scrolling="yes"
+              class="hidden"
+            ></iframe>
+      
+          </div>
+        
+        <div class="detail-row">
+          <div class="detail-label">Оюутны нэр:</div>
+          <div id="studentName"></div>
+        </div>
+        
+        <div class="detail-row">
+          <div class="detail-label">Оюутны ID:</div>
+          <div id="studentId"></div>
+        </div>
+        
+        <div class="detail-row">
+          <div class="detail-label">Хичээл:</div>
+          <div id="courseName"></div>
+        </div>
+        
+        <div class="detail-row">
+          <div class="detail-label">Гарчиг:</div>
+          <div id="requestTitle"></div>
+        </div>
+        
+        <div class="detail-row">
+          <div class="detail-label">Дэлгэрэнгүй:</div>
+          <div id="requestDetails"></div>
+        </div>
+        
+        <div id="staffActions" class="hidden">
+          <hr>
+          <h3>Шийдвэр гаргах</h3>
+          <textarea id="staffComment" class="form-textarea" placeholder="Тайлбар..."></textarea>
+          <div class="action-buttons">
+            <button id="approveBtn" class="btn btn-success">Зөвшөөрөх</button>
+            <button id="rejectBtn" class="btn btn-danger">Татгалзах</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="view-submission.js"></script>
+</body>
+</html>
