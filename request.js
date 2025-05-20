@@ -13,6 +13,12 @@ const requestNotFoundEl = document.getElementById("requestNotFound");
 // --- Initialization and User Handling ---
 function initRequestPage() {
     const storedUser = localStorage.getItem("numforms_user");
+    // Check if this is a QR code access
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.has('key')) {
+  // Let auth.js handle it
+  return;
+}
     if (storedUser) {
         try {
             currentUser = JSON.parse(storedUser);

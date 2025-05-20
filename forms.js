@@ -1,7 +1,7 @@
 // JotForm URLs and Descriptions
 const jotFormUrls = {
   'r_rating_request': 'https://form.jotform.com/251119434684459',
-  'grade_dispute_complaint': 'https://form.jotform.com/251331602827451',
+  'grade_dispute_complaint': 'https://form.jotform.com/251331717312447',
   'late_registration': 'https://form.jotform.com/251119434684459',
   'course_cancellation': 'https://form.jotform.com/251119434684459',
   'add_elective_course': 'https://form.jotform.com/251119434684459',
@@ -48,7 +48,7 @@ function updateForm() {
   } else if (selectedType) {
     jotFormIFrame.classList.remove('hidden');
     descriptionTextarea.classList.add('hidden');
-    jotFormIFrame.src = jotFormUrls[selectedType] || 'https://form.jotform.com/251119434684459';
+    jotFormIFrame.src = jotFormUrls[selectedType] || 'https://form.jotform.com/251331717312447';
   } else {
     jotFormIFrame.classList.add('hidden');
     descriptionTextarea.classList.add('hidden');
@@ -401,6 +401,18 @@ function handleRequestSubmit(e) {
   allRequests.push(newRequest);
   localStorage.setItem("numforms_requests", JSON.stringify(allRequests));
 
+  // After creating newRequest
+if (newRequest.type === 'grade_dispute_complaint') {
+  newRequest.assigned_to = 'staff4'; // Assign specifically to staff4
+  newRequest.access_key = generateAccessKey(); // For QR code access
+}
+
+// Add this helper function
+function generateAccessKey() {
+  return Math.random().toString(36).substring(2, 15) + 
+         Math.random().toString(36).substring(2, 15);
+}
+
   generateQRCode(newRequest);
 
   addNotification({
@@ -522,6 +534,13 @@ function addNotification(notification) {
   const storedNotifications = localStorage.getItem(`numforms_notifications_${notification.userId}`);
   let userNotifs = [];
 
+  if (notification.relatedTo?.type === 'request') {
+    const request = allRequests.find(r => r.id === notification.relatedTo.id);
+    if (request?.type === 'grade_dispute_complaint') {
+      notification.userId = 'staff4'; // Override to only notify staff4
+    }
+  }
+
   if (storedNotifications) {
     try {
       userNotifs = JSON.parse(storedNotifications);
@@ -586,6 +605,8 @@ function showToast(title, message, type = "success") {
 }
 
 function generateQRCode(formData) {
+  const baseUrl = window.location.origin;
+  const viewUrl = `${baseUrl}/view-submission.html?id=${formData.id}`;
   try {
     const qrCodeSection = document.getElementById('qrCodeSection');
     qrCodeSection.classList.remove('hidden');
