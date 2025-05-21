@@ -1,0 +1,668 @@
+
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NumForms - Бүртгүүлэх</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-content">
+                <div class="logo">
+                    <a href="index.html">NumForms</a>
+                </div>
+                <div class="nav-links" id="navLinks">
+                    <a href="index.html" class="nav-link">Нүүр</a>
+                    <a href="forms.html" class="nav-link">Маягтууд</a>
+                    <a href="directory.html" class="nav-link">Ажилчдын хаяг</a>
+                    <a href="about.html" class="nav-link">Бидний тухай</a>
+                </div>
+                <div class="nav-actions">
+                    <a href="index.html" class="btn btn-outline">Нэвтрэх</a>
+                </div>
+                
+            </div>
+        </div>
+    </nav>
+
+    <div class="container register-container">
+        <div class="register-content">
+            <h1>Бүртгүүлэх</h1>
+            <p class="register-description">NumForms системд тавтай морил. Та хэрэглэгчийн төрлөө сонгож бүртгүүлнэ үү.</p>
+            
+            <div class="card register-card">
+                <div class="register-card-content">
+                    <div class="tabs" role="tablist">
+                        <div class="tab-headers">
+                            <button class="tab-btn active" data-tab="student-register" role="tab" aria-selected="true" aria-controls="student-register-tab">Оюутан</button>
+                            <button class="tab-btn" data-tab="staff-register" role="tab" aria-selected="false" aria-controls="staff-register-tab">Ажилтан</button>
+                        </div>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="student-register-tab" role="tabpanel">
+                                <form id="studentRegisterForm">
+                                    <input type="hidden" name="_csrf" id="studentCsrfToken">
+                                    <div class="form-grid">
+                                        <div class="form-group full-width">
+                                            <label for="studentIdCardImage" class="form-label">Оюутны үнэмлэхний зураг</label>
+                                            <input type="file" id="studentIdCardImage" name="studentIdCardImage" class="form-input" accept="image/*">
+                                        </div>
+                                        <div class="form-group full-width">
+                                            <button type="button" id="scanStudentIdButton" class="btn btn-outline btn-block" style="margin-bottom: 15px;">Оюутны үнэмлэх уншуулах</button>
+                                            <small id="ocrStatus" class="form-text text-muted"></small> 
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="studentLastName" class="form-label">Овог</label>
+                                            <input type="text" id="studentLastName" name="studentLastName" class="form-input" placeholder="Овог" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="studentFirstName" class="form-label">Нэр</label>
+                                            <input type="text" id="studentFirstName" name="studentFirstName" class="form-input" placeholder="Нэр" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group full-width">
+                                        <label for="studentSchoolEmail" class="form-label">Сургуулийн албан ёсны outlook э-мэйл</label>
+                                        <input type="email" id="studentSchoolEmail" name="studentSchoolEmail" class="form-input" placeholder="жишээ: 20B1NUM1799@stud.num.edu.mn" required>
+                                    </div>
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label for="studentFaculty" class="form-label">Салбар сургууль</label>
+                                            <select id="studentFaculty" name="studentFaculty" class="form-select" required>
+                                                <option value="" disabled selected>-- Сонгоно уу --</option>
+                                                <option value="ШУС-ХУС">ШУС-Хүмүүнлэгийн Ухааны Сургууль</option>
+                                                <option value="ШУС-БУС">ШУС-Байгалийн Ухааны Сургууль</option>
+                                                <option value="ШУС-НУС">ШУС-Нийгмийн Ухааны Сургууль</option>
+                                                <option value="БС">Бизнесийн Сургууль</option>
+                                                <option value="ХЗС">Хууль Зүйн Сургууль</option>
+                                                <option value="ОУХНУС">Олон Улсын Харилцаа, Нийтийн Удирдлагын Сургууль</option>
+                                                <option value="МТЭС">Мэдээллийн технологи, электроникийн сургууль</option>
+                                                <option value="ИНС">Инженер технологийн сургууль</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="studentDepartment" class="form-label">Тэнхим</label>
+                                            <select id="studentDepartment" name="studentDepartment" class="form-select" required>
+                                                <option value="" disabled selected>-- Эхлээд салбар сургуулиа сонгоно уу --</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label for="studentProgram" class="form-label">Хөтөлбөр/Мэргэжил</label>
+                                            <select id="studentProgram" name="studentProgram" class="form-select" required>
+                                                <option value="" disabled selected>-- Эхлээд тэнхимээ сонгоно уу --</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="studentLevel" class="form-label">Суралцаж буй түвшин</label> 
+                                            <select id="studentLevel" name="studentLevel" class="form-select" required>
+                                                <option value="" disabled selected>-- Сонгоно уу --</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option> 
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group full-width">
+                                        <label for="studentID" class="form-label">Оюутны дугаар</label>
+                                        <input type="text" id="studentID" name="studentID" class="form-input" placeholder="Оюутны дугаараа оруулна уу" required>
+                                    </div>
+                                    <div class="form-group full-width">
+                                        <label for="studentPhoneNumber" class="form-label">Утасны дугаар</label>
+                                        <input type="tel" id="studentPhoneNumber" name="studentPhoneNumber" class="form-input" placeholder="Жишээ: 99112233" required>
+                                    </div>
+                                    <!-- <div class="form-grid">
+                                        <div class="form-group">
+                                            <label for="studentPassword" class="form-label">Нууц үг</label>
+                                            <input type="password" id="studentPassword" name="studentPassword" class="form-input" placeholder="Нууц үг (дор хаяж 6 тэмдэгт)" required>
+                                        </div>  
+                                        <div class="form-group">
+                                            <label for="studentRepeatPassword" class="form-label">Нууц үг давтах</label>
+                                            <input type="password" id="studentRepeatPassword" name="studentRepeatPassword" class="form-input" placeholder="Нууц үгээ давтан оруулна уу" required>
+                                        </div>
+                                    </div> -->
+                                    <div class="form-group full-width">
+                                        <button type="submit" class="btn btn-primary btn-block">Бүртгүүлэх</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="tab-pane" id="staff-register-tab" role="tabpanel">
+                                <form id="staffRegisterForm">
+                                    <input type="hidden" name="_csrf" id="staffCsrfToken">
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label for="staffLastName" class="form-label">Овог</label>
+                                            <input type="text" id="staffLastName" name="staffLastName" class="form-input" placeholder="Овог" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="staffFirstName" class="form-label">Нэр</label>
+                                            <input type="text" id="staffFirstName" name="staffFirstName" class="form-input" placeholder="Нэр" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group full-width">
+                                        <label for="staffSchoolEmail" class="form-label">Сургуулийн албан ёсны э-мэйл хаяг</label>
+                                        <input type="email" id="staffSchoolEmail" name="staffSchoolEmail" class="form-input" placeholder="altangerel@num.edu.mn" required>
+                                    </div>
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label for="staffFaculty" class="form-label">Салбар сургууль</label>
+                                            <select id="staffFaculty" name="staffFaculty" class="form-select" required>
+                                                <option value="" disabled selected>-- Сонгоно уу --</option>
+                                                <option value="ШУС-ХУС">ШУС-Хүмүүнлэгийн Ухааны Сургууль</option>
+                                                <option value="ШУС-БУС">ШУС-Байгалийн Ухааны Сургууль</option>
+                                                <option value="ШУС-НУС">ШУС-Нийгмийн Ухааны Сургууль</option>
+                                                <option value="БС">Бизнесийн Сургууль</option>
+                                                <option value="ХЗС">Хууль Зүйн Сургууль</option>
+                                                <option value="ОУХНУС">Олон Улсын Харилцаа, Нийтийн Удирдлагын Сургууль</option>
+                                                <option value="МТЭС">Мэдээллийн технологи, электроникийн сургууль</option>
+                                                <option value="ИНС">Инженер технологийн сургууль</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="staffDepartment" class="form-label">Тэнхим</label>
+                                            <select id="staffDepartment" name="staffDepartment" class="form-select" required>
+                                                <option value="" disabled selected>-- Эхлээд салбар сургуулиа сонгоно уу --</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group full-width">
+                                        <label for="staffPosition" class="form-label">Албан тушаал</label>
+                                        <select id="staffPosition" name="staffPosition" class="form-select" required>
+                                            <option value="" disabled selected>-- Сонгоно уу --</option>
+                                            <option value="Профессор">Профессор</option>
+                                            <option value="Дэд профессор">Дэд профессор</option>
+                                            <option value="Ахлах багш">Ахлах багш</option>
+                                            <option value="Багш">Багш</option>
+                                            <option value="Туслах багш">Туслах багш</option>
+                                            <option value="Захиргааны ажилтан">Захиргааны ажилтан</option>
+                                            <option value="Техникийн ажилтан">Техникийн ажилтан</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-grid">
+                                        <div class="form-group">
+                                            <label for="staffOfficeRoom" class="form-label">Өрөөний дугаар</label>
+                                            <input type="text" id="staffOfficeRoom" name="staffOfficeRoom" class="form-input" placeholder="Жишээ: Хичээлийн байр 2 - 201" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="staffPhoneNumber" class="form-label">Утасны дугаар</label>
+                                            <input type="tel" id="staffPhoneNumber" name="staffPhoneNumber" class="form-input" placeholder="Жишээ: 99112233" required>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="form-grid">
+                                        <div class="form-group">
+                                            <label for="staffPassword" class="form-label">Нууц үг</label>
+                                            <input type="password" id="staffPassword" name="staffPassword" class="form-input" placeholder="Нууц үг (дор хаяж 6 тэмдэгт)" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="staffRepeatPassword" class="form-label">Нууц үг давтах</label>
+                                            <input type="password" id="staffRepeatPassword" name="staffRepeatPassword" class="form-input" placeholder="Нууц үгээ давтан оруулна уу" required>
+                                        </div>
+                                    </div> -->
+                                    <div class="form-group full-width">
+                                        <button type="submit" class="btn btn-primary btn-block">Бүртгүүлэх</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="register-card-footer">
+                    <p class="login-prompt">
+                        Бүртгэлтэй юу? <a href="index.html#loginContainer">Энд дарж нэвтэрнэ үү</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const facultyData = {
+            "ШУС-ХУС": [
+                { name: "Хэл шинжлэлийн тэнхим", programs: ["Монгол хэл шинжлэл", "Англи хэл шинжлэл", "Герман хэл шинжлэл", "Франц хэл шинжлэл", "Солонгос хэлний орчуулга", "Япон хэлний орчуулга", "Хятад хэлний орчуулга"] },
+                { name: "Түүхийн тэнхим", programs: ["Түүх", "Археологи-Антропологи", "МУ-н түүх", "Дэлхийн түүх"] },
+                { name: "Философи, шашин судлалын тэнхим", programs: ["Философи", "Шашин судлал", "Соёл судлал"] },
+                { name: "Утга зохиол, урлаг судлалын тэнхим", programs: ["Утга зохиол судлал", "Урлаг судлал", "Хэл бичиг, утга зохиол (багш)"] }
+            ],
+            "ШУС-БУС": [
+                { name: "Математикийн тэнхим", programs: ["Математик", "Математик (багш)", "Актуар математик", "Хэрэглээний математик"] },
+                { name: "Физикийн тэнхим", programs: ["Физик", "Физик (багш)", "Инженер физик", "Одон орон судлал"] },
+                { name: "Химийн тэнхим", programs: ["Хими", "Хими (багш)", "Химийн инженерчлэл"] },
+                { name: "Биологийн тэнхим", programs: ["Биологи", "Биологи (багш)", "Экологи", "Ургамал судлал"] },
+                { name: "Газарзүйн тэнхим", programs: ["Газарзүй", "Газарзүй (багш)", "Аялал жуулчлал", "Газрын кадастр"] }
+            ],
+            "ШУС-НУС": [
+                { name: "Нийгэм судлалын тэнхим", programs: ["Социологи", "Нийгмийн ажил", "Хүн судлал"] },
+                { name: "Сэтгэл судлалын тэнхим", programs: ["Сэтгэл судлал", "Боловсрол судлал", "Сэтгэл зүйн зөвлөгөө"] },
+                { name: "Улс төр судлалын тэнхим", programs: ["Улс төр судлал", "Олон нийтийн харилцаа", "Төрийн удирдлага"] },
+                { name: "Хүн ам зүйн тэнхим", programs: ["Хүн ам зүй", "Статистик", "Эдийн засгийн хүн ам зүй"] }
+            ],
+            "БС": [
+                { name: "Нягтлан бодох бүртгэлийн тэнхим", programs: ["Нягтлан бодох бүртгэл", "Аудит", "Санхүүгийн бүртгэл"] },
+                { name: "Маркетингийн тэнхим", programs: ["Маркетинг", "Дижитал маркетинг", "Борлуулалтын удирдлага"] },
+                { name: "Менежментийн тэнхим", programs: ["Бизнесийн удирдлага", "Хүний нөөцийн удирдлага", "Үйлдвэрлэлийн менежмент"] },
+                { name: "Санхүүгийн тэнхим", programs: ["Санхүү", "Банк", "Даатгал", "Хөрөнгийн зах зээл"] },
+                { name: "Эдийн засгийн тэнхим", programs: ["Эдийн засаг", "Микро эдийн засаг", "Макро эдийн засаг"] }
+            ],
+            "ХЗС": [
+                { name: "Эрүүгийн эрх зүйн тэнхим", programs: ["Эрүүгийн эрх зүй", "Криминологи", "Шүүх эрх мэдэл"] },
+                { name: "Иргэний эрх зүйн тэнхим", programs: ["Иргэний эрх зүй", "Гэр бүлийн эрх зүй", "Хөдөлмөрийн эрх зүй"] },
+                { name: "Олон улсын эрх зүйн тэнхим", programs: ["Олон улсын нийтийн эрх зүй", "Олон улсын хувийн эрх зүй", "Европын холбооны эрх зүй"] },
+                { name: "Захиргааны эрх зүйн тэнхим", programs: ["Захиргааны эрх зүй", "Төрийн албаны эрх зүй", "Мэдээллийн эрх чөлөөний эрх зүй"] }
+            ],
+            "ОУХНУС": [
+                { name: "Олон улс судлалын тэнхим", programs: ["Олон улсын харилцаа", "Бүс нутаг судлал (Ази)", "Бүс нутаг судлал (Европ)"] },
+                { name: "Нийтийн удирдлагын тэнхим", programs: ["Төрийн удирдлага", "Орон нутгийн удирдлага", "Бодлого судлал"] },
+                { name: "Сэтгүүл зүйн тэнхим", programs: ["Сэтгүүл зүй", "Хэвлэл мэдээлэл", "Олон нийтийн харилцаа"] },
+                { name: "Гадаад хэлний тэнхим", programs: ["Англи хэл (мэргэжлийн)", "Хятад хэл (мэргэжлийн)", "Орос хэл (мэргэжлийн)"] }
+            ],
+            "МТЭС": [
+                { name: "Програм хангамжийн инженерийн тэнхим", programs: ["Програм хангамж", "Вэб хөгжүүлэлт", "Мобайл хөгжүүлэлт", "Тоглоом хөгжүүлэлт"] },
+                { name: "Мэдээллийн системийн тэнхим", programs: ["Мэдээллийн систем", "Дата аналист", "Бизнес аналист", "Мэдээллийн аюулгүй байдал"] },
+                { name: "Компьютерын ухааны тэнхим", programs: ["Компьютерын шинжлэх ухаан", "Хиймэл оюун ухаан", "Компьютер график", "Өгөгдлийн шинжлэх ухаан"] },
+                { name: "Электроникийн тэнхим", programs: ["Электроник", "Эмбэддэд систем", "Роботик", "Автоматжуулалт"] },
+                { name: "Холбооны технологийн тэнхим", programs: ["Холбооны технологи", "Сүлжээний инженерчлэл", "Кибер аюулгүй байдал", "Үүлэн технологи"] }
+            ],
+            "ИНС": [
+                { name: "Барилгын инженерийн тэнхим", programs: ["Иргэний ба үйлдвэрлэлийн барилга", "Зам гүүрийн барилга", "Усны инженерийн байгууламж", "Геодези"] },
+                { name: "Механик инженерийн тэнхим", programs: ["Механик инженер", "Машин үйлдвэрлэл", "Дулааны инженер", "Сэргээгдэх эрчим хүч"] },
+                { name: "Уул уурхайн инженерийн тэнхим", programs: ["Уул уурхайн ашиглалтын технологи", "Ашигт малтмалын баяжуулалт", "Уурхайн цахилгаан тоног төхөөрөмж", "Маркшейдер"] },
+                { name: "Геологийн тэнхим", programs: ["Геологи", "Гидрогеологи", "Инженер геологи", "Ашигт малтмалын эрэл хайгуул"] },
+                { name: "Хүрээлэн буй орчны инженерийн тэнхим", programs: ["Экологийн инженерчлэл", "Цэвэр технологи", "Усны нөөцийн менежмент", "Хатуу хог хаягдлын менежмент"] }
+            ]
+        };
+
+        // OCR school name mapping for better matching
+        const schoolNameMapping = {
+            'мэдээллийн технологи, электроникийн сургууль': 'МТЭС',
+            'инженер технологийн сургууль': 'ИНС',
+            'хууль зүйн сургууль': 'ХЗС',
+            'бизнесийн сургууль': 'БС',
+            'олон улсын харилцаа, нийтийн удирдлагын сургууль': 'ОУХНУС',
+            'шуус-хүмүүнлэгийн ухааны сургууль': 'ШУС-ХУС',
+            'шуус-байгалийн ухааны сургууль': 'ШУС-БУС',
+            'шуус-нийгмийн ухааны сургууль': 'ШУС-НУС'
+        };
+
+        function populateDepartments(facultySelectId, departmentSelectId, programSelectId) {
+            const facultySelect = document.getElementById(facultySelectId);
+            const departmentSelect = document.getElementById(departmentSelectId);
+            const programSelect = document.getElementById(programSelectId);
+
+            const selectedFacultyValue = facultySelect.value;
+            departmentSelect.innerHTML = '<option value="" disabled selected>-- Сонгоно уу --</option>';
+            
+            if (programSelect) { 
+                programSelect.innerHTML = '<option value="" disabled selected>-- Эхлээд тэнхимээ сонгоно уу --</option>';
+                programSelect.disabled = true; 
+            }
+
+            if (selectedFacultyValue && facultyData[selectedFacultyValue]) {
+                facultyData[selectedFacultyValue].forEach(department => {
+                    const option = document.createElement('option');
+                    option.value = department.name; 
+                    option.textContent = department.name;
+                    departmentSelect.appendChild(option);
+                });
+            }
+        }
+
+        function populatePrograms(facultySelectId, departmentSelectId, programSelectId) {
+            const facultySelect = document.getElementById(facultySelectId);
+            const departmentSelect = document.getElementById(departmentSelectId);
+            const programSelect = document.getElementById(programSelectId);
+
+            const selectedFacultyValue = facultySelect.value;
+            const selectedDepartmentName = departmentSelect.value;
+
+            programSelect.innerHTML = '<option value="" disabled selected>-- Сонгоно уу --</option>';
+            programSelect.disabled = true;
+
+            if (selectedFacultyValue && selectedDepartmentName && facultyData[selectedFacultyValue]) {
+                const departmentObject = facultyData[selectedFacultyValue].find(dept => dept.name === selectedDepartmentName);
+                if (departmentObject && departmentObject.programs) { 
+                    departmentObject.programs.forEach(program => {
+                        const option = document.createElement('option');
+                        option.value = program;
+                        option.textContent = program;
+                        programSelect.appendChild(option);
+                    });
+                    programSelect.disabled = false; 
+                }
+            }
+        }
+                
+        function setupRegisterTabSwitching() {
+            const tabButtons = document.querySelectorAll(".register-card .tab-btn");
+            const tabPanes = document.querySelectorAll(".register-card .tab-pane");
+
+            if (tabButtons.length === 0 || tabPanes.length === 0) {
+                console.warn("Register page tabs not found for switching.");
+                return;
+            }
+
+            tabButtons.forEach(btn => {
+                btn.addEventListener("click", function() {
+                    const tabId = this.getAttribute("data-tab");
+                    
+                    tabButtons.forEach(b => {
+                        b.classList.remove("active");
+                        b.setAttribute("aria-selected", "false");
+                    });
+                    tabPanes.forEach(p => p.classList.remove("active"));
+                    
+                    this.classList.add("active");
+                    this.setAttribute("aria-selected", "true");
+                    const activePane = document.getElementById(`${tabId}-tab`);
+                    if (activePane) {
+                        activePane.classList.add("active");
+                    } else {
+                        console.error(`Tab pane with ID ${tabId}-tab not found.`);
+                    }
+                });
+            });
+        }
+
+        // CSRF Token авах функц
+        async function fetchCsrfToken() {
+            try {
+                const response = await fetch('http://localhost:8000/api/csrf-token', {
+                    credentials: 'include'
+                });
+                if (!response.ok) throw new Error('CSRF токен авахад алдаа гарлаа.');
+                const data = await response.json();
+                return data.csrfToken;
+            } catch (error) {
+                console.error('CSRF Token Error:', error);
+                throw error;
+            }
+        }
+
+        async function handleScanStudentId() {
+            const imageInput = document.getElementById('studentIdCardImage');
+            const statusElement = document.getElementById('ocrStatus');
+            const scanButton = document.getElementById('scanStudentIdButton');
+            const studentLastNameInput = document.getElementById('studentLastName');
+            const studentFirstNameInput = document.getElementById('studentFirstName');
+            const studentIdInput = document.getElementById('studentID');
+            const facultySelect = document.getElementById('studentFaculty');
+
+            if (!imageInput.files || imageInput.files.length === 0) {
+                statusElement.textContent = 'Оюутны үнэмлэхний зургийг сонгоно уу.';
+                statusElement.style.color = 'red';
+                return;
+            }
+
+            scanButton.disabled = true;
+            scanButton.textContent = 'Уншиж байна...';
+            statusElement.textContent = 'Зургийг уншиж байна, түр хүлээнэ үү...';
+            statusElement.style.color = 'blue';
+
+            const file = imageInput.files[0];
+            const formData = new FormData();
+            formData.append('studentCardImage', file);
+
+            try {
+                const csrfToken = await fetchCsrfToken();
+                const response = await fetch('http://localhost:8000/api/recognize-mongolian-student-card', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRF-Token': csrfToken
+                    },
+                    credentials: 'include'
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({ message: 'Серверээс алдаатай хариу ирлээ.' }));
+                    throw new Error(errorData.message || `HTTP алдаа: ${response.status}`);
+                }
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    statusElement.textContent = 'Оюутны үнэмлэх амжилттай уншигдлаа!';
+                    statusElement.style.color = 'green';
+
+                    // Populate form fields
+                    if (data.lastName) studentLastNameInput.value = data.lastName;
+                    if (data.firstName) studentFirstNameInput.value = data.firstName;
+                    if (data.studentId) studentIdInput.value = data.studentId;
+                    
+                    // Map school name to faculty
+                    if (data.schoolName) {
+                        const normalizedSchoolName = data.schoolName.toLowerCase();
+                        const matchedFaculty = Object.keys(schoolNameMapping).find(key => 
+                            normalizedSchoolName.includes(key)
+                        );
+                        if (matchedFaculty && schoolNameMapping[matchedFaculty]) {
+                            facultySelect.value = schoolNameMapping[matchedFaculty];
+                            populateDepartments('studentFaculty', 'studentDepartment', 'studentProgram');
+                        }
+                    }
+                } else {
+                    statusElement.textContent = data.message || 'OCR боловсруулахад алдаа гарлаа.';
+                    statusElement.style.color = 'red';
+                }
+            } catch (error) {
+                console.error('OCR Error:', error);
+                statusElement.textContent = `Алдаа: ${error.message}. Сервер ажиллаж байгаа эсэхийг шалгана уу.`;
+                statusElement.style.color = 'red';
+            } finally {
+                scanButton.disabled = false;
+                scanButton.textContent = 'Оюутны үнэмлэх уншуулах';
+            }
+        }
+
+        // Inline error display functions
+        const showError = (input, message) => {
+            const formGroup = input.closest('.form-group');
+            let errorElement = formGroup.querySelector('.error-message');
+            if (!errorElement) {
+                errorElement = document.createElement('span');
+                errorElement.className = 'error-message';
+                errorElement.style.color = 'red';
+                errorElement.style.fontSize = '0.8em';
+                errorElement.style.display = 'block';
+                formGroup.appendChild(errorElement);
+            }
+            errorElement.textContent = message;
+            input.focus();
+        };
+
+        const clearErrors = (form) => {
+            form.querySelectorAll('.error-message').forEach(el => el.remove());
+        };
+
+        // Phone number validation
+        const validatePhoneNumber = (phone) => {
+            const phoneRegex = /^\+976[5-9][0-9]{7}$/;
+            return phoneRegex.test(phone);
+        };
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            // CSRF токеныг эхлээд татаж хадгалах
+            let csrfToken = '';
+            try {
+                csrfToken = await fetchCsrfToken();
+                document.getElementById('studentCsrfToken').value = csrfToken;
+                document.getElementById('staffCsrfToken').value = csrfToken;
+            } catch (error) {
+                console.error('CSRF токеныг татахад алдаа гарлаа:', error);
+                alert('Системтэй холбогдоход алдаа гарлаа. Дахин оролдоно уу.');
+            }
+
+            // Setup tab switching
+            setupRegisterTabSwitching(); 
+
+            // Student form dropdowns
+            const studentFacultySelect = document.getElementById('studentFaculty');
+            const studentDepartmentSelect = document.getElementById('studentDepartment');
+            if (studentFacultySelect && studentDepartmentSelect) {
+                populateDepartments('studentFaculty', 'studentDepartment', 'studentProgram'); 
+                studentFacultySelect.addEventListener('change', function() {
+                    populateDepartments('studentFaculty', 'studentDepartment', 'studentProgram');
+                });
+                studentDepartmentSelect.addEventListener('change', function() {
+                    populatePrograms('studentFaculty', 'studentDepartment', 'studentProgram');
+                });
+            }
+            
+            // Staff form dropdowns
+            const staffFacultySelect = document.getElementById('staffFaculty');
+            const staffDepartmentSelect = document.getElementById('staffDepartment');
+            if (staffFacultySelect && staffDepartmentSelect) {
+                populateDepartments('staffFaculty', 'staffDepartment', null); 
+                staffFacultySelect.addEventListener('change', function() {
+                    populateDepartments('staffFaculty', 'staffDepartment', null);
+                });
+            }
+            
+            // OCR scan button
+            const scanButton = document.getElementById('scanStudentIdButton');
+            if (scanButton) {
+                scanButton.addEventListener('click', handleScanStudentId);
+            }
+
+            // Student form submission
+            const studentRegisterForm = document.getElementById('studentRegisterForm');
+            if (studentRegisterForm) {
+                studentRegisterForm.addEventListener('submit', async function(event) {
+                    event.preventDefault();
+                    clearErrors(studentRegisterForm);
+
+                    const studentIdInput = document.getElementById('studentID');
+                    const emailInput = document.getElementById('studentSchoolEmail');
+                    const passwordInput = document.getElementById('studentPassword');
+                    const repeatPasswordInput = document.getElementById('studentRepeatPassword');
+                    const phoneInput = document.getElementById('studentPhoneNumber');
+                    const studentIdValue = studentIdInput.value.trim();
+                    const emailValue = emailInput.value.trim();
+
+                    const studentIdRegex = /^[0-9]{2}B1NUM[0-9]{4}$/i;
+                    if (!studentIdRegex.test(studentIdValue)) {
+                        showError(studentIdInput, 'Оюутны дугаар буруу байна. (Жишээ: 20B1NUM1799)');
+                        return;
+                    }
+
+                    const studentEmailRegex = /^[a-z0-9._%+-]*B1NUM[a-z0-9._%+-]*@stud\.num\.edu\.mn$/i;
+                    if (!studentEmailRegex.test(emailValue)) {
+                        showError(emailInput, 'Оюутны мэйл хаяг буруу бүтэцтэй байна. (...B1NUM...@stud.num.edu.mn)');
+                        return;
+                    }
+
+                    if (!emailValue.toUpperCase().includes(studentIdValue.toUpperCase())) {
+                        showError(emailInput, 'Оюутны дугаар болон имэйл хаяг тохирохгүй байна.');
+                        return;
+                    }
+
+                    if (!validatePhoneNumber(phoneInput.value)) {
+                        showError(phoneInput, 'Утасны дугаар буруу байна. (Жишээ: +97699112233)');
+                        return;
+                    }
+
+                    if (passwordInput.value.length < 6) {
+                        showError(passwordInput, 'Нууц үг хамгийн багадаа 6 тэмдэгттэй байх ёстой.');
+                        return;
+                    }
+
+                    if (passwordInput.value !== repeatPasswordInput.value) {
+                        showError(repeatPasswordInput, 'Нууц үгнүүд таарахгүй байна!');
+                        return;
+                    }
+
+                    // Backend submission
+                    try {
+                        const formData = new FormData(studentRegisterForm);
+                        const response = await fetch('http://localhost:8000/api/register/student', {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'X-CSRF-Token': csrfToken
+                            },
+                            credentials: 'include'
+                        });
+
+                        const data = await response.json();
+                        if (data.success) {
+                            alert('Бүртгэл амжилттай! Нэвтэрнэ үү.');
+                            window.location.href = 'index.html#loginContainer';
+                        } else {
+                            showError(studentRegisterForm.querySelector('.btn-primary'), data.message || 'Бүртгэл амжилтгүй боллоо.');
+                        }
+                    } catch (error) {
+                        console.error('Registration Error:', error);
+                        showError(studentRegisterForm.querySelector('.btn-primary'), 'Сервертэй холбогдоход алдаа гарлаа: ' + error.message);
+                    }
+                });
+            }
+
+            // Staff form submission
+            const staffRegisterForm = document.getElementById('staffRegisterForm');
+            if (staffRegisterForm) {
+                staffRegisterForm.addEventListener('submit', async function(event) {
+                    event.preventDefault();
+                    clearErrors(staffRegisterForm);
+
+                    const emailInput = document.getElementById('staffSchoolEmail');
+                    const passwordInput = document.getElementById('staffPassword');
+                    const repeatPasswordInput = document.getElementById('staffRepeatPassword');
+                    const phoneInput = document.getElementById('staffPhoneNumber');
+
+                    const staffEmailRegex = /^[a-zA-Z0-9._%+-]+@num\.edu\.mn$/;
+                    if (!staffEmailRegex.test(emailInput.value.trim())) {
+                        showError(emailInput, 'Ажилтны мэйл хаяг буруу байна. (Жишээ: altangerel@num.edu.mn)');
+                        return;
+                    }
+
+                    if (!validatePhoneNumber(phoneInput.value)) {
+                        showError(phoneInput, 'Утасны дугаар буруу байна. (Жишээ: +97699112233)');
+                        return;
+                    }
+
+                    if (passwordInput.value.length < 6) {
+                        showError(passwordInput, 'Нууц үг хамгийн багадаа 6 тэмдэгттэй байх ёстой.');
+                        return;
+                    }
+
+                    if (passwordInput.value !== repeatPasswordInput.value) {
+                        showError(repeatPasswordInput, 'Нууц үгнүүд таарахгүй байна!');
+                        return;
+                    }
+
+                    // Backend submission
+                    try {
+                        const formData = new FormData(staffRegisterForm);
+                        const response = await fetch('http://localhost:8000/api/register/staff', {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'X-CSRF-Token': csrfToken
+                            },
+                            credentials: 'include'
+                        });
+
+                        const data = await response.json();
+                        if (data.success) {
+                            alert('Бүртгэл амжилттай! Нэвтэрнэ үү.');
+                            window.location.href = 'index.html#loginContainer';
+                        } else {
+                            showError(staffRegisterForm.querySelector('.btn-primary'), data.message || 'Бүртгэл амжилтгүй боллоо.');
+                        }
+                    } catch (error) {
+                        console.error('Registration Error:', error);
+                        showError(staffRegisterForm.querySelector('.btn-primary'), 'Сервертэй холбогдоход алдаа гарлаа: ' + error.message);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
